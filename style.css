@@ -1,0 +1,197 @@
+* {
+  font-family: "Poppins", sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  min-height: 100vh;
+  margin: 0;
+  padding-top: 65px;
+  background-color: #f5f5f5;
+}
+
+.post {
+  background: #f9f9f9;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  margin: 15px auto;
+  padding: 20px;
+  width: 800px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s, box-shadow 0.2s;
+  cursor: pointer;
+}
+
+/* Hover effect */
+.post:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.post img {
+  width: 100%;
+  max-width: 350px;
+  height: 250px;
+  border-radius: 4px;
+  object-fit: cover;
+}
+
+.carousel-container {
+  position: relative;
+  max-width: 1100px;
+  overflow: hidden;
+  margin: auto;
+}
+
+.carousel-slide {
+  display: flex;
+  transition: transform 0.5s ease-in-out;
+}
+
+.carousel-item {
+  min-width: 100%;
+  box-sizing: border-box;
+  text-align: center;
+  padding: 20px;
+}
+
+.carousel-item img {
+  max-width: 100%;
+  height: 450px;
+  border-radius: 8px;
+  margin: 10px 0;
+  object-fit: cover;
+}
+
+.carousel-item h2 {
+  font-size: 1.5em;
+  margin-bottom: 10px;
+}
+
+.carousel-item p {
+  font-size: 1em;
+  margin-bottom: 15px;
+}
+
+@media (max-width: 480px) {
+  .post {
+    max-width: 100%;
+  }
+}
+
+@media (min-width: 768px) {
+  .carousel-item h2 {
+    font-size: 2em;
+  }
+  .carousel-item p {
+    font-size: 1.1em;
+  }
+  .post {
+    max-width: 90%;
+  }
+}
+
+@media (min-width: 1024px) {
+  .carousel-item h2 {
+    font-size: 2.5em;
+  }
+  .carousel-item p {
+    font-size: 1.2em;
+  }
+}
+
+button.prev,
+button.next {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(0, 0, 0, 0.5);
+  color: white;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+  font-size: 1.5em;
+}
+
+button.prev {
+  left: 0;
+}
+
+button.next {
+  right: 0;
+}
+
+button.prev:hover,
+button.next:hover {
+  background: rgba(0, 0, 0, 0.7);
+}
+
+/*Footer*/
+.footer-container {
+  max-width: 1170px;
+  margin: auto;
+}
+.row {
+  display: flex;
+  flex-wrap: wrap;
+}
+.footer ul {
+  list-style: none;
+}
+.footer {
+  background-color: #d9d9d9;
+  padding: 70px 0;
+}
+.footer-col {
+  width: 25%;
+  padding: 0 15px;
+}
+.footer-col h4 {
+  font-size: 18px;
+  color: #000;
+  margin-bottom: 35px;
+  font-weight: 600;
+  position: relative;
+}
+.footer-col h4 ::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -10px;
+  background-color: #fff;
+  height: 2px;
+  box-sizing: border-box;
+  width: 50px;
+}
+.footer-col ul li:not(:last-child) {
+  margin-bottom: 10px;
+}
+.footer-col ul li a {
+  font-size: 16px;
+  text-decoration: none;
+  font-weight: 800;
+  color: #000;
+  display: block;
+  transition: all 0.3s ease;
+}
+.footer-col ul li a:hover {
+  color: #292929;
+  padding-left: 8px;
+}
+.footer-col .social-links a {
+  display: inline-block;
+  height: 40px;
+  width: 40px;
+  background-color: rgba(255, 255, 255, 0.2);
+  margin: 0 10px 10px 0;
+  text-align: center;
+  line-height: 40px;
+  border-radius: 50%;
+  color: #000;
+  transition: all 0.5s ease;
+}
+.footer-col .social-links a:hover {
+  color: #fff;
+  background-color: #000;
+}
