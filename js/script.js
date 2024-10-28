@@ -25,6 +25,7 @@ async function getBlogPosts() {
 
     console.log(responseData);
 
+    //Carousel
     if (responseData.data) {
       const postsData = responseData.data;
       const latestPosts = postsData.slice(0, 3);
@@ -37,7 +38,7 @@ async function getBlogPosts() {
             <p>By ${post.author.name} on ${new Date(
           post.created
         ).toLocaleDateString()}</p>
-            <p>${post.body.slice(0, 100)}...</p>
+            <p>${post.body.slice(0, 80)}...</p>
             ${
               post.media?.url
                 ? `<img src="${post.media.url}" alt="${post.media.alt}" />`
@@ -48,22 +49,62 @@ async function getBlogPosts() {
       });
       document.querySelector(".carousel-slide").innerHTML = carouselHTML;
 
+      let currentIndex = 0;
+
+      document.querySelector(".next").addEventListener("click", () => {
+        moveToNextSlide();
+      });
+
+      document.querySelector(".prev").addEventListener("click", () => {
+        moveToPreviousSlide();
+      });
+
+      function updateCarousel() {
+        const carouselSlide = document.querySelector(".carousel-slide");
+        carouselSlide.style.transform = `translateX(${-currentIndex * 100}%)`;
+      }
+
+      function moveToNextSlide() {
+        const totalItems = document.querySelectorAll(`.carousel-item`).length;
+        if (currentIndex >= totalItems - 1) {
+          currentIndex = 0;
+        } else {
+          currentIndex++;
+        }
+        updateCarousel();
+      }
+
+      function moveToPreviousSlide() {
+        const totalItems = document.querySelectorAll(`.carousel-item`).length;
+        if (currentIndex <= 0) {
+          currentIndex = totalItems - 1;
+        } else {
+          currentIndex--;
+        }
+        updateCarousel();
+      }
+
+      // All Posts
       postsData.forEach((post) => {
         allPostsHTML += `
-          <div class="post">
-            <h2>${post.title}</h2>
-            <p>By ${post.author.name} on ${new Date(
+          <a href="./post/index.html?id=${post.id}" class="post-link">
+            <div class="post">
+              <h2>${post.title}</h2>
+              <p>By ${post.author.name} on ${new Date(
           post.created
         ).toLocaleDateString()}</p>
-            <p>${post.body.slice(0, 100)}...</p>
-            ${
-              post.media?.url
-                ? `<img src="${post.media.url}" alt="${post.media.alt}" />`
-                : ""
-            }
-            <button onclick="goToPost('${post.id}')">Read More</button>
-          </div>`;
+              ${
+                post.media?.url
+                  ? `<img src="${post.media.url}" alt="${
+                      post.media.alt || "Blog post thumbnail"
+                    }" class="post-thumbnail">`
+                  : ""
+              }
+              <p>${post.body.slice(0, 100)}...</p>
+            </div>
+          </a>`;
       });
+
       document.getElementById("all-posts").innerHTML = allPostsHTML;
     } else {
       console.error("No data found");
@@ -85,38 +126,3 @@ function goToPost(postId) {
 }
 
 getBlogPosts();
-
-let currentIndex = 0;
-
-document.querySelector(".next").addEventListener("click", () => {
-  moveToNextSlide();
-});
-
-document.querySelector(".prev").addEventListener("click", () => {
-  moveToPreviousSlide();
-});
-
-function updateCarousel() {
-  const carouselSlide = document.querySelector(".carousel-slide");
-  carouselSlide.style.transform = `translateX(${-currentIndex * 100}%)`;
-}
-
-function moveToNextSlide() {
-  const totalItems = document.querySelectorAll(`.carousel-item`).length;
-  if (currentIndex >= totalItems - 1) {
-    currentIndex = 0;
-  } else {
-    currentIndex++;
-  }
-  updateCarousel();
-}
-
-function moveToPreviousSlide() {
-  const totalItems = document.querySelectorAll(`.carousel-item`).length;
-  if (currentIndex <= 0) {
-    currentIndex = totalItems - 1;
-  } else {
-    currentIndex--;
-  }
-  updateCarousel();
-}

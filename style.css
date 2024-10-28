@@ -23,7 +23,6 @@ body {
   cursor: pointer;
 }
 
-/* Hover effect */
 .post:hover {
   transform: translateY(-5px);
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
@@ -72,6 +71,11 @@ body {
 .carousel-item p {
   font-size: 1em;
   margin-bottom: 15px;
+}
+
+.post-link {
+  text-decoration: none; /* Removes underline */
+  color: inherit; /* Inherits text color */
 }
 
 @media (max-width: 480px) {

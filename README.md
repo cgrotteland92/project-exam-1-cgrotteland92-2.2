@@ -2,8 +2,6 @@
 
 # FED1 Project Exam 1
 
-# FED1 Project Exam 1
-
 Goal
 
 To put into practice the skills you have learned over the FED1 program. You will demonstrate your ability to interpret a brief, plan your solution, design a user interface, build and test a responsive web application. You will be required to use all of the skills that you have learned this year including design, HTML, CSS and JavaScript.
