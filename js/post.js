@@ -26,11 +26,11 @@ async function getSinglePost() {
     );
     const result = await response.json();
 
-    console.log("Fetch result:", result); // Log to check the structure of result
+    console.log("Fetch result:", result);
 
-    // Check if result.data is an object with post information
     if (result.data) {
-      const post = result.data; // Access the post data directly
+      // Chat GPT assistance as my code was not working, result.data was object not array
+      const post = result.data;
       displayPost(post);
     } else {
       document.getElementById("post-content").innerHTML =

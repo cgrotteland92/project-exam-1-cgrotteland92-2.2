@@ -85,7 +85,10 @@ async function getBlogPosts() {
       }
 
       // All Posts
-      postsData.forEach((post) => {
+      const remainingPosts = postsData.slice(3);
+      let allPosts = "";
+
+      remainingPosts.forEach((post) => {
         allPostsHTML += `
           <a href="./post/index.html?id=${post.id}" class="post-link">
             <div class="post">
