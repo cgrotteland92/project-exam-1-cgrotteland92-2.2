@@ -25,7 +25,7 @@ async function getBlogPosts() {
 
     console.log(responseData);
 
-    //Carousel
+    //Carousel, some AI assistance here
     if (responseData.data) {
       const postsData = responseData.data;
       const latestPosts = postsData.slice(0, 3);
