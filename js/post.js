@@ -65,4 +65,24 @@ function displayPost(post) {
   `;
 }
 
+// ChatGPT assistance
+function displayShareableLink() {
+  const shareableLink = `${window.location.href}`;
+  const linkContainer = document.getElementById("share-link");
+
+  linkContainer.addEventListener("click", (event) => {
+    event.preventDefault();
+
+    navigator.clipboard
+      .writeText(shareableLink)
+      .then(() => {
+        alert("Link copied to clipboard!");
+      })
+      .catch((err) => {
+        console.error("Error copying link to clipboard", err);
+      });
+  });
+}
+
 getSinglePost();
+displayShareableLink();

@@ -33,6 +33,24 @@ body {
   line-height: 1.6;
 }
 
+.share-button {
+  display: inline-block; /* Makes the link behave like a button */
+  padding: 10px 15px; /* Padding for button size */
+  color: #fff; /* Button text color */
+  background-color: #007bff; /* Button background color */
+  border: none;
+  border-radius: 5px;
+  text-decoration: none; /* Removes underline */
+  font-size: 1em;
+  text-align: center; /* Centers the text */
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.share-button:hover {
+  background-color: #0056b3; /* Darker background on hover */
+}
+
 .footer-container {
   max-width: 1170px;
   margin: auto;
