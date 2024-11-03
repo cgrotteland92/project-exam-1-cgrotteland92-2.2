@@ -12,7 +12,6 @@ document.addEventListener("DOMContentLoaded", function () {
         passwordField.type = this.checked ? "text" : "password";
       });
 
-    // Handle form submission
     loginForm.addEventListener("submit", async (event) => {
       event.preventDefault();
 
@@ -37,24 +36,27 @@ document.addEventListener("DOMContentLoaded", function () {
         if (response.ok) {
           const data = await response.json();
           localStorage.setItem("authToken", data.token);
-          document.getElementById("login-message").innerText =
-            "Login successful!";
-          document.getElementById("login-message").style.color = "green";
 
-          // Redirect to index.html in root directory
+          loginMessage.className = "success";
+          loginMessage.innerText = "Login successful!";
+          loginMessage.style.display = "block";
+
           setTimeout(() => (window.location.href = "../index.html"), 2000);
         } else {
           const errorData = await response.json();
-          document.getElementById("login-message").innerText = `Error: ${
+
+          loginMessage.className = "error";
+          loginMessage.innerText = `Error: ${
             errorData.errors[0].message || "Login failed."
           }`;
-          document.getElementById("login-message").style.color = "red";
+          loginMessage.style.display = "block";
         }
       } catch (error) {
         console.error("Error:", error);
-        document.getElementById("login-message").innerText =
-          "An error occurred. Please try again.";
-        document.getElementById("login-message").style.color = "red";
+
+        loginMessage.className = "error";
+        loginMessage.innerText = "An error occurred. Please try again.";
+        loginMessage.style.display = "block";
       }
     });
   }

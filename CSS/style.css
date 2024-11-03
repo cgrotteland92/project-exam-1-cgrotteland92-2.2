@@ -8,7 +8,8 @@ body {
   min-height: 100vh;
   margin: 0;
   padding-top: 65px;
-  background-color: #f5f5f5;
+  background-color: #eef7ff;
+  color: #000;
 }
 
 /*Header*/
@@ -64,10 +65,102 @@ nav .home-link {
   cursor: pointer;
 }
 
-.post {
-  background: #f9f9f9;
+/*login & register.html*/
+#login-message {
+  font-size: 1rem;
+  margin-top: 1rem;
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  text-align: center;
+  display: none;
+}
+
+#login-message.success {
+  color: #155724;
+  background-color: #d4edda;
+  border: 1px solid #c3e6cb;
+}
+
+#login-message.error {
+  color: #721c24;
+  background-color: #f8d7da;
+  border: 1px solid #f5c6cb;
+}
+
+#register-form {
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 2rem;
+  border: 1px solid #d9cab3;
   border-radius: 8px;
-  border: 1px solid #ddd;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+}
+
+#register-form label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+  color: #333;
+}
+
+#register-form input[type="text"],
+#register-form input[type="password"],
+#register-form input[type="email"] {
+  width: 100%;
+  padding: 0.5rem;
+  margin-bottom: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  font-size: 1rem;
+}
+
+#register-form input:focus {
+  border-color: #ff6f61;
+  outline: none;
+  background-color: #eef7ff;
+}
+
+#register-form button[type="submit"] {
+  width: 100%;
+  padding: 0.75rem;
+  font-size: 1rem;
+  color: #fff;
+  background-color: #ff6f61;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background-color 0.3s ease;
+}
+
+#register-form button[type="submit"]:hover {
+  background-color: #e65c52;
+}
+
+#register-form p {
+  margin-top: 1rem;
+  text-align: center;
+  font-size: 0.9rem;
+  color: #666;
+}
+
+#register-form p a {
+  color: #007bff;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+#register-form p a:hover {
+  text-decoration: underline;
+}
+
+/* index.html */
+.post {
+  background: #fff;
+  border-radius: 8px;
+  border: 1px solid #d9cab3;
   margin: 15px auto;
   padding: 20px;
   width: 800px;
@@ -127,17 +220,18 @@ nav .home-link {
 }
 
 .post-link {
-  text-decoration: none; /* Removes underline */
-  color: inherit; /* Inherits text color */
+  text-decoration: none;
+  color: inherit;
 }
 
+/*post/index.html*/
 .single-post-container {
   max-width: 800px;
   margin: 20px auto;
   padding: 20px;
-  background: #f9f9f9;
+  background: #fff;
   border-radius: 8px;
-  border: 1px solid #ddd;
+  border: 1px solid #d9cab3;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
@@ -157,7 +251,7 @@ nav .home-link {
   display: inline-block;
   padding: 10px 15px;
   color: #fff;
-  background-color: #007bff;
+  background-color: #ff6f61;
   border: none;
   border-radius: 5px;
   text-decoration: none;
@@ -168,7 +262,27 @@ nav .home-link {
 }
 
 .share-button:hover {
-  background-color: #0056b3;
+  background-color: #e65c52;
+}
+
+/* Responsive Styling */
+@media (max-width: 600px) {
+  #register-form {
+    padding: 1.5rem;
+    margin: 1rem;
+  }
+
+  #register-form button[type="submit"] {
+    padding: 0.6rem;
+    font-size: 0.9rem;
+  }
+
+  #register-form input[type="text"],
+  #register-form input[type="password"],
+  #register-form input[type="email"] {
+    padding: 0.4rem;
+    font-size: 0.9rem;
+  }
 }
 
 @media (max-width: 480px) {
