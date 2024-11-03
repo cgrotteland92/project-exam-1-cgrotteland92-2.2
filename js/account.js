@@ -5,13 +5,16 @@ document.addEventListener("DOMContentLoaded", function () {
 
   if (loginForm) {
     // Toggle password visibility
-    document
-      .getElementById("togglePassword")
-      .addEventListener("change", function () {
-        const passwordField = document.getElementById("password");
+    const togglePassword = document.getElementById("togglePassword");
+    const passwordField = document.getElementById("password");
+
+    if (togglePassword && passwordField) {
+      togglePassword.addEventListener("change", function () {
         passwordField.type = this.checked ? "text" : "password";
       });
+    }
 
+    // Handle form submission
     loginForm.addEventListener("submit", async (event) => {
       event.preventDefault();
 
@@ -33,30 +36,37 @@ document.addEventListener("DOMContentLoaded", function () {
           body: JSON.stringify({ email, password }),
         });
 
+        console.log(`Response status: ${response.status}`);
+
         if (response.ok) {
           const data = await response.json();
           localStorage.setItem("authToken", data.token);
 
-          loginMessage.className = "success";
-          loginMessage.innerText = "Login successful!";
-          loginMessage.style.display = "block";
+          const loginMessage = document.getElementById("login-message");
+          if (loginMessage) {
+            loginMessage.innerText = "Login successful!";
+            loginMessage.style.color = "green";
+          }
 
+          // Redirect to index.html in root directory
           setTimeout(() => (window.location.href = "../index.html"), 2000);
         } else {
           const errorData = await response.json();
-
-          loginMessage.className = "error";
-          loginMessage.innerText = `Error: ${
-            errorData.errors[0].message || "Login failed."
-          }`;
-          loginMessage.style.display = "block";
+          const loginMessage = document.getElementById("login-message");
+          if (loginMessage) {
+            loginMessage.innerText = `Error: ${
+              errorData.errors[0].message || "Login failed."
+            }`;
+            loginMessage.style.color = "red";
+          }
         }
       } catch (error) {
         console.error("Error:", error);
-
-        loginMessage.className = "error";
-        loginMessage.innerText = "An error occurred. Please try again.";
-        loginMessage.style.display = "block";
+        const loginMessage = document.getElementById("login-message");
+        if (loginMessage) {
+          loginMessage.innerText = "An error occurred. Please try again.";
+          loginMessage.style.color = "red";
+        }
       }
     });
   }
