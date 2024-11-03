@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Project Exam</title>
+    <link rel="stylesheet" href="/CSS/style.css" />
+    <script
+      src="https://kit.fontawesome.com/ff0f99a23c.js"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body>
+  </head>
+  <body class="page-home">
+      <header class="header">
+          <nav>
+              <a href="index.html">
+              <img src="images/logo.png" alt="#">
+              </a>
+              <input type="checkbox" id="sidebar-active">
+              <label for="sidebar-active" class="open-sidebar-button">
+                  <i class="fa-solid fa-bars fa-xl" id="menu-icon" style="color: #000000;"></i>
+                  
+              </label>
+              <label id="overlay" for="sidebar-active"></label>
+              <div class="links-container">
+                  <label for="sidebar-active" class="close-sidebar-button">
+                      <i class="fa-solid fa-xmark fa-xl" id="close-icon" style="color: #000000;"></i>
+                  </label>
+                  <a class="home-link" href="feed.html">Blogging</a>
+                  <a href="feed.html">Home</a>
+                  <a href="visit.html">Blogs</a>
+                  <a href="explore.html">About Us</a>
+                  
+              </div>
+          </nav>
+      </header>
+    <main>
+      <h1>Welcome</h1>
+      <form id="login-form">
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required>
+    
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required>
+        <label>
+            <input type="checkbox" id="togglePassword"> Show Password
+        </label>
+    
+        <button type="submit">Login</button>
+    </form>
+    <div id="login-message"></div>
+    <p>Don’t have an account? <a href="register.html">Register here</a>.</p>
+      
+    </main>
+    <footer class="footer">
+      <div class="footer-container">
+        <div class="row">
+          <div class="footer-col">
+            <h4>Customer Service</h4>
+            <ul>
+              <li>
+                <a href="visit.html">E-mail: info@</a>
+              </li>
+              <li><a href="visit.html">Phone: +47 570 52 007</a></li>
+            </ul>
+          </div>
+          <div class="footer-col">
+            <h4>About</h4>
+            <ul>
+              <li><a href="terms.html">Terms of Service</a></li>
+              <li><a href="privacy.html">Privacy Policy</a></li>
+            </ul>
+          </div>
+          <div class="footer-col">
+            <h4>Follow Us</h4>
+            <div class="social-links">
+              <a href="https://www.facebook.com"
+                ><i class="fa-brands fa-facebook"></i
+              ></a>
+              <a href="https://www.instagram.com"
+                ><i class="fa-brands fa-instagram"></i
+              ></a>
+              <a href="https://www.twitter.com"
+                ><i class="fa-brands fa-x-twitter"></i
+              ></a>
+              <a href="https://www.linkedin.com"
+                ><i class="fa-brands fa-linkedin"></i
+              ></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>
+<script src="/js/script.js"></script>
+<script src="/js/authCheck.js"></script>
+<script src="/js/account.js"></script>
