@@ -62,7 +62,21 @@ function displayPost(post) {
         : ""
     }
     <div class="post-body">${post.body || "Content not available."}</div>
+    <button id="edit-button">Edit Post</button>
+    <button id="delete-button">Delete Post</button>
   `;
+  document
+    .getElementById("edit-button")
+    .addEventListener("click", () => editPost(post.id));
+  {
+    document
+      .getElementById("delete-button")
+      .addEventListener("click", () => deletePost(post.id));
+  }
+}
+
+function editPost(postId) {
+  window.location.href = `edit.html?id=${postId}`; // Redirects to edit page with the post ID
 }
 
 // ChatGPT assistance

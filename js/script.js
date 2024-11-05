@@ -90,7 +90,7 @@ async function getBlogPosts() {
 
       remainingPosts.forEach((post) => {
         allPostsHTML += `
-          <a href="./post/index.html?id=${post.id}" class="post-link">
+          <a href="./post/singlePost.html?id=${post.id}" class="post-link">
             <div class="post">
               <h2>${post.title}</h2>
               <p>By ${post.author.name} on ${new Date(
@@ -125,7 +125,7 @@ async function getBlogPosts() {
 }
 
 function goToPost(postId) {
-  window.location.href = `./post/index.html?id=${postId}`;
+  window.location.href = `./post/singlePost.html?id=${postId}`;
 }
 
 getBlogPosts();
