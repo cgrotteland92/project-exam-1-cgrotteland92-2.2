@@ -1,11 +1,9 @@
 "use strict";
-// ChatGPT for const options
+// Function to fetch and display blog posts
 async function getBlogPosts() {
   const options = {
     method: "GET",
     headers: {
-      Authorization:
-        "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiY2dyb3R0ZWxhbmQiLCJlbWFpbCI6ImNocmdybzAyMTIyQHN0dWQubm9yb2ZmLm5vIiwiaWF0IjoxNzI5NzA4ODYzfQ.7JaI651Kw-OpJGMp-HlM4n3WUcV_12YHYfzJygZZWRA",
       "X-Noroff-API-Key": "ca9fdebf-7c0e-4858-8136-c2e58a3c24f0",
       "Content-Type": "application/json",
     },
@@ -20,18 +18,16 @@ async function getBlogPosts() {
       "https://v2.api.noroff.dev/blog/posts/cgrotteland",
       options
     );
-
     const responseData = await response.json();
-
     console.log(responseData);
 
-    //Carousel, some AI assistance here
     if (responseData.data) {
       const postsData = responseData.data;
       const latestPosts = postsData.slice(0, 3);
       let carouselHTML = "";
       let allPostsHTML = "";
 
+      // Carousel for the latest posts
       latestPosts.forEach((post) => {
         carouselHTML += `<div class="carousel-item">
             <h2>${post.title}</h2>
@@ -49,15 +45,14 @@ async function getBlogPosts() {
       });
       document.querySelector(".carousel-slide").innerHTML = carouselHTML;
 
+      // Carousel navigation
       let currentIndex = 0;
-
-      document.querySelector(".next").addEventListener("click", () => {
-        moveToNextSlide();
-      });
-
-      document.querySelector(".prev").addEventListener("click", () => {
-        moveToPreviousSlide();
-      });
+      document
+        .querySelector(".next")
+        .addEventListener("click", moveToNextSlide);
+      document
+        .querySelector(".prev")
+        .addEventListener("click", moveToPreviousSlide);
 
       function updateCarousel() {
         const carouselSlide = document.querySelector(".carousel-slide");
@@ -66,28 +61,18 @@ async function getBlogPosts() {
 
       function moveToNextSlide() {
         const totalItems = document.querySelectorAll(`.carousel-item`).length;
-        if (currentIndex >= totalItems - 1) {
-          currentIndex = 0;
-        } else {
-          currentIndex++;
-        }
+        currentIndex = (currentIndex + 1) % totalItems;
         updateCarousel();
       }
 
       function moveToPreviousSlide() {
         const totalItems = document.querySelectorAll(`.carousel-item`).length;
-        if (currentIndex <= 0) {
-          currentIndex = totalItems - 1;
-        } else {
-          currentIndex--;
-        }
+        currentIndex = (currentIndex - 1 + totalItems) % totalItems;
         updateCarousel();
       }
 
-      // All Posts
+      // All remaining posts below the carousel
       const remainingPosts = postsData.slice(3);
-      let allPosts = "";
-
       remainingPosts.forEach((post) => {
         allPostsHTML += `
           <a href="./post/singlePost.html?id=${post.id}" class="post-link">
@@ -124,8 +109,10 @@ async function getBlogPosts() {
   }
 }
 
+// Function to navigate to the single post page
 function goToPost(postId) {
   window.location.href = `./post/singlePost.html?id=${postId}`;
 }
 
+// Initialize fetching of blog posts
 getBlogPosts();

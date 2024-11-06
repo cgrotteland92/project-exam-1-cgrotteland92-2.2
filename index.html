@@ -13,9 +13,6 @@
   <body>
       <header class="header">
           <nav>
-              <a href="index.html">
-              <img src="images/logo.png" alt="#">
-              </a>
               <input type="checkbox" id="sidebar-active">
               <label for="sidebar-active" class="open-sidebar-button">
                   <i class="fa-solid fa-bars fa-xl" id="menu-icon" style="color: #000000;"></i>
@@ -29,7 +26,7 @@
                   <a class="home-link" href="index.html">Blogging</a>
                   <a href="index.html">Home</a>
                   <a href="visit.html">Blogs</a>
-                  <a href="explore.html">About Us</a>
+                  <a href="/account/login.html">Log in</a>
               </div>
           </nav>
       </header>
@@ -85,6 +82,9 @@
     </footer>
   </body>
 </html>
-<script src="./js/script.js"></script>
+<script src="/js/script.js"></script>
 <script src="/js/authCheck.js"></script>
 <scriptr src="/js/account.js"></script>
+  <script>
+    console.log("Authorization Header:", `Bearer ${token}`);
+  </script>

@@ -13,9 +13,6 @@
   <body>
     <header class="header">
       <nav>
-        <a href="index.html">
-          <img src="images/logo.png" alt="#" />
-        </a>
         <input type="checkbox" id="sidebar-active" />
         <label for="sidebar-active" class="open-sidebar-button">
           <i
@@ -36,7 +33,7 @@
           <a class="home-link" href="/index.html">Blogging</a>
           <a href="/index.html">Home</a>
           <a href="visit.html">Blogs</a>
-          <a href="explore.html">About Us</a>
+          <a href="/account/login.html">Log in</a>
         </div>
       </nav>
     </header>
@@ -44,8 +41,6 @@
       <h1>Post Page</h1>
       <div class="single-post-container">
         <div id="post-content"></div>
-        <button id="edit-button">Edit Post</button>
-        <button id="delete-button">Delete Post</button>
 
         <p id="action-message"></p>
         <p>
@@ -96,5 +91,9 @@
     </footer>
   </body>
 </html>
-<script src="/js/singlePost.js"></script>
-<script src="/js/authCheck.js"></script>
+<script src="../js/singlePost.js"></script>
+<script src="../js/authCheck.js"></script>
+<script src="../js/account.js"></script>
+<script>
+  console.log("Authorization Header:", `Bearer ${token}`);
+</script>

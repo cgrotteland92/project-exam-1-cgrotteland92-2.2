@@ -36,37 +36,39 @@ document.addEventListener("DOMContentLoaded", function () {
           body: JSON.stringify({ email, password }),
         });
 
-        console.log(`Response status: ${response.status}`);
+        // Log the entire response to see its structure
+        const data = await response.json();
+        console.log("API Response:", data);
 
         if (response.ok) {
-          const data = await response.json();
-          localStorage.setItem("authToken", data.token);
+          const authToken =
+            data.accessToken || data.token || data.data?.accessToken;
 
-          const loginMessage = document.getElementById("login-message");
-          if (loginMessage) {
-            loginMessage.innerText = "Login successful!";
-            loginMessage.style.color = "green";
+          if (authToken) {
+            localStorage.setItem("authToken", authToken);
+            console.log("Token saved:", authToken);
+
+            document.getElementById("login-message").innerText =
+              "Login successful!";
+            document.getElementById("login-message").style.color = "green";
+            setTimeout(() => (window.location.href = "../index.html"), 2000);
+          } else {
+            console.error("No access token in response data:", data);
+            document.getElementById("login-message").innerText =
+              "No access token found in response.";
           }
-
-          // Redirect to index.html in root directory
-          setTimeout(() => (window.location.href = "../index.html"), 2000);
         } else {
-          const errorData = await response.json();
-          const loginMessage = document.getElementById("login-message");
-          if (loginMessage) {
-            loginMessage.innerText = `Error: ${
-              errorData.errors[0].message || "Login failed."
-            }`;
-            loginMessage.style.color = "red";
-          }
+          console.error("Login failed with response:", data);
+          document.getElementById("login-message").innerText = `Error: ${
+            data.errors?.[0]?.message || "Login failed."
+          }`;
+          document.getElementById("login-message").style.color = "red";
         }
       } catch (error) {
         console.error("Error:", error);
-        const loginMessage = document.getElementById("login-message");
-        if (loginMessage) {
-          loginMessage.innerText = "An error occurred. Please try again.";
-          loginMessage.style.color = "red";
-        }
+        document.getElementById("login-message").innerText =
+          "An error occurred. Please try again.";
+        document.getElementById("login-message").style.color = "red";
       }
     });
   }

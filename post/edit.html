@@ -11,43 +11,48 @@
     ></script>
   </head>
   <body>
-      <header class="header">
-          <nav>
-              <a href="index.html">
-              <img src="images/logo.png" alt="#">
-              </a>
-              <input type="checkbox" id="sidebar-active">
-              <label for="sidebar-active" class="open-sidebar-button">
-                  <i class="fa-solid fa-bars fa-xl" id="menu-icon" style="color: #000000;"></i>
-                  
-              </label>
-              <label id="overlay" for="sidebar-active"></label>
-              <div class="links-container">
-                  <label for="sidebar-active" class="close-sidebar-button">
-                      <i class="fa-solid fa-xmark fa-xl" id="close-icon" style="color: #000000;"></i>
-                  </label>
-                  <a class="home-link" href="/index.html">Blogging</a>
-                  <a href="/index.html">Home</a>
-                  <a href="visit.html">Blogs</a>
-                  <a href="explore.html">About Us</a>
-              </div>
-          </nav>
-      </header>
+    <header class="header">
+      <nav>
+        <input type="checkbox" id="sidebar-active" />
+        <label for="sidebar-active" class="open-sidebar-button">
+          <i
+            class="fa-solid fa-bars fa-xl"
+            id="menu-icon"
+            style="color: #000000"
+          ></i>
+        </label>
+        <label id="overlay" for="sidebar-active"></label>
+        <div class="links-container">
+          <label for="sidebar-active" class="close-sidebar-button">
+            <i
+              class="fa-solid fa-xmark fa-xl"
+              id="close-icon"
+              style="color: #000000"
+            ></i>
+          </label>
+          <a class="home-link" href="/index.html">Blogging</a>
+          <a href="/index.html">Home</a>
+          <a href="visit.html">Blogs</a>
+          <a href="explore.html">About Us</a>
+        </div>
+      </nav>
+    </header>
     <main>
-        <h1>Edit Post</h1>
-        <form id="edit-form">
-            <label for="title">Title:</label>
-            <input type="text" id="title" name="title" required>
+      <h1>Edit Post</h1>
+      <form id="edit-form">
+        <label for="title">Title:</label>
+        <input type="text" id="title" name="title" required />
 
-            <label for="body">Body Content:</label>
-            <textarea id="body" name="body" rows="6" required></textarea>
+        <label for="body">Content:</label>
+        <textarea id="body" name="body" required></textarea>
 
-            <label for="image">Image URL:</label>
-            <input type="text" id="image" name="image">
+        <label for="image">Image URL:</label>
+        <input type="text" id="image" name="image" />
 
-            <button type="submit">Update Post</button>
-        </form>
-        <p id="edit-message"></p>
+        <button type="submit">Update Post</button>
+      </form>
+
+      <p id="edit-message"></p>
     </main>
     <footer class="footer">
       <div class="footer-container">
@@ -91,8 +96,11 @@
         </div>
       </div>
     </footer>
+    <script src="../js/authCheck.js"></script>
+    <script src="../js/account.js"></script>
+    <script src="../js/edit.js"></script>
   </body>
 </html>
-<script src="./js/script.js"></script>
-<script src="/js/authCheck.js"></script>
-<scriptr src="/js/account.js"></script>
+<script>
+  console.log("Authorization Header:", `Bearer ${token}`);
+</script>

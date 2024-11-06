@@ -1,37 +1,51 @@
 "use strict";
 
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", async function () {
   const token = localStorage.getItem("authToken");
+  const postId = new URLSearchParams(window.location.search).get("id");
+  const username = "cgrotteland"; // Replace with actual username if different
 
   if (!token) {
-    alert("You must be logged in to edit a post.");
+    alert("You must be logged in to edit or delete a post.");
     window.location.href = "/account/login.html";
+    return;
   }
 
-  const postId = new URLSearchParams(window.location.search).get("id");
   if (!postId) {
     alert("No post ID found.");
     window.location.href = "../index.html";
+    return;
   }
 
+  const editForm = document.getElementById("edit-form");
+  const titleInput = document.getElementById("title");
+  const bodyInput = document.getElementById("body");
+  const imageInput = document.getElementById("image");
+  const deleteButton = document.getElementById("delete-button");
+  const editMessage = document.getElementById("edit-message");
+
+  // Fetch existing post data to pre-fill the form
   async function fetchPostData() {
     try {
       const response = await fetch(
-        `https://v2.api.noroff.dev/blog/posts/${postId}`,
+        `https://v2.api.noroff.dev/blog/posts/${username}/${postId}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
             "X-Noroff-API-Key": "ca9fdebf-7c0e-4858-8136-c2e58a3c24f0",
+            "Content-Type": "application/json",
           },
         }
       );
-      const data = await response.json();
-      const post = data.data;
 
-      document.getElementById("title").value = post.title;
-      document.getElementById("body").value = post.body;
-      if (post.media?.url) {
-        document.getElementById("image").value = post.media.url;
+      if (response.ok) {
+        const data = await response.json();
+        const post = data.data;
+        titleInput.value = post.title;
+        bodyInput.value = post.body;
+        if (post.media?.url) imageInput.value = post.media.url;
+      } else {
+        throw new Error("Post not found or unable to fetch data.");
       }
     } catch (error) {
       console.error("Error fetching post data:", error);
@@ -39,25 +53,21 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   }
 
-  fetchPostData();
+  await fetchPostData();
 
-  const editForm = document.getElementById("edit-form");
+  // Handle post update
   editForm.addEventListener("submit", async function (event) {
     event.preventDefault();
 
-    const title = document.getElementById("title").value;
-    const body = document.getElementById("body").value;
-    const imageUrl = document.getElementById("image").value;
-
     const updatedData = {
-      title: title,
-      body: body,
-      media: imageUrl ? { url: imageUrl } : null,
+      title: titleInput.value,
+      body: bodyInput.value,
+      media: imageInput.value ? { url: imageInput.value } : null,
     };
 
     try {
       const response = await fetch(
-        `https://v2.api.noroff.dev/blog/posts/${postId}`,
+        `https://v2.api.noroff.dev/blog/posts/${username}/${postId}`,
         {
           method: "PUT",
           headers: {
@@ -70,18 +80,45 @@ document.addEventListener("DOMContentLoaded", function () {
       );
 
       if (response.ok) {
-        document.getElementById("edit-message").innerText =
-          "Post updated successfully!";
-        document.getElementById("edit-message").style.color = "green";
+        editMessage.innerText = "Post updated successfully!";
+        editMessage.style.color = "green";
         setTimeout(() => (window.location.href = "../index.html"), 2000);
       } else {
         throw new Error("Failed to update post.");
       }
     } catch (error) {
       console.error("Error updating post:", error);
-      document.getElementById("edit-message").innerText =
-        "Error updating post. Please try again.";
-      document.getElementById("edit-message").style.color = "red";
+      editMessage.innerText = "Error updating post. Please try again.";
+      editMessage.style.color = "red";
+    }
+  });
+
+  // Handle post deletion
+  deleteButton.addEventListener("click", async function () {
+    if (!confirm("Are you sure you want to delete this post?")) return;
+
+    try {
+      const response = await fetch(
+        `https://v2.api.noroff.dev/blog/posts/${username}/${postId}`,
+        {
+          method: "DELETE",
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "X-Noroff-API-Key": "ca9fdebf-7c0e-4858-8136-c2e58a3c24f0",
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      if (response.ok) {
+        alert("Post deleted successfully!");
+        window.location.href = "../index.html";
+      } else {
+        throw new Error("Failed to delete post. It may not exist.");
+      }
+    } catch (error) {
+      console.error("Error deleting post:", error);
+      alert("An error occurred. Please try again.");
     }
   });
 });
