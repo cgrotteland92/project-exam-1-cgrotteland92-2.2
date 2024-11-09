@@ -1,10 +1,10 @@
-// authCheck.js
-
 const token = localStorage.getItem("authToken");
 
 if (!token) {
-  // Display a message indicating that editing and deleting require login
   console.log("Admin functions are restricted to logged-in users only.");
+  window.location.href = "login.html";
+  document.getElementById("login-message").innerText =
+    "Please log in to access admin functions.";
 } else {
   console.log("Admin functions enabled.");
 }

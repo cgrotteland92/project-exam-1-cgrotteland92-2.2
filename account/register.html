@@ -14,9 +14,6 @@
     <body>
       <header class="header">
           <nav>
-              <a href="index.html">
-              <img src="images/logo.png" alt="#">
-              </a>
               <input type="checkbox" id="sidebar-active">
               <label for="sidebar-active" class="open-sidebar-button">
                   <i class="fa-solid fa-bars fa-xl" id="menu-icon" style="color: #000000;"></i>
@@ -30,21 +27,21 @@
                   <a class="home-link" href="/index.html">Blogging</a>
                   <a href="/index.html">Home</a>
                   <a href="visit.html">Blogs</a>
-                  <a href="/account/login.html">Log in</a>
+                  <a id="login-link" href="/account/login.html">Log in</a>
               </div>
           </nav>
       </header>
     <main>
     <h1>Register</h1>
-    <form id="register-form">
+    <form id="register-form" class="form-container">
       <label for="username">Username:</label>
-      <input type="text" name="username" id="username" required>
+      <input type="text" name="username" id="username" required autocomplete="username">
   
       <label for="password">Password:</label>
-      <input type="password" name="password" id="password" required minlength="8">
+      <input type="password" name="password" id="password" autocomplete="current-password" minlength="8">
   
       <label for="email">Email:</label>
-      <input type="email" name="email" id="email" required>
+      <input type="email" name="email" id="email" required autocomplete="current-email">
   
       <button type="submit">Register</button>
       <p>Already have an account? <a href="login.html">Log in here</a>.</p>
@@ -90,9 +87,8 @@
       </div>
     </footer>
   </body>
-  <script src="../js/script.js"></script>
     <script src="../js/authCheck.js"></script>
     <script src="../js/account.js"></script>
-    <script src="../js/edit.js"></script>
+    
 </html>
 

@@ -1,20 +1,47 @@
 "use strict";
 
 document.addEventListener("DOMContentLoaded", function () {
+  const loginLink = document.getElementById("login-link");
+
+  const togglePassword = document.getElementById("togglePassword");
+  const passwordField = document.getElementById("password");
+
+  if (togglePassword && passwordField) {
+    togglePassword.addEventListener("change", function () {
+      passwordField.type = this.checked ? "text" : "password";
+    });
+  }
+
+  function checkLoginStatus() {
+    const authToken = localStorage.getItem("authToken");
+
+    if (loginLink) {
+      if (authToken) {
+        loginLink.innerText = "Sign Out"; // Only used to show "Sign Out" after login
+        let currentPath = window.location.pathname;
+
+        if (currentPath.includes("account")) {
+          loginLink.href = "../index.html"; // Go to the home page from account
+        } else if (currentPath.includes("post")) {
+          loginLink.href = "../account/login.html"; // Login page from post
+        } else {
+          loginLink.href = "/account/login.html"; // Absolute path to login page
+        }
+      } else {
+        loginLink.innerText = "Log In";
+        loginLink.href = "/account/login.html"; // Default login page path
+      }
+    } else {
+      console.error("login-link element not found in the DOM.");
+    }
+  }
+
+  // Check the login status when the page loads
+  checkLoginStatus();
+
   const loginForm = document.getElementById("login-form");
 
   if (loginForm) {
-    // Toggle password visibility
-    const togglePassword = document.getElementById("togglePassword");
-    const passwordField = document.getElementById("password");
-
-    if (togglePassword && passwordField) {
-      togglePassword.addEventListener("change", function () {
-        passwordField.type = this.checked ? "text" : "password";
-      });
-    }
-
-    // Handle form submission
     loginForm.addEventListener("submit", async (event) => {
       event.preventDefault();
 
@@ -36,7 +63,6 @@ document.addEventListener("DOMContentLoaded", function () {
           body: JSON.stringify({ email, password }),
         });
 
-        // Log the entire response to see its structure
         const data = await response.json();
         console.log("API Response:", data);
 
@@ -51,7 +77,15 @@ document.addEventListener("DOMContentLoaded", function () {
             document.getElementById("login-message").innerText =
               "Login successful!";
             document.getElementById("login-message").style.color = "green";
-            setTimeout(() => (window.location.href = "../index.html"), 2000);
+
+            checkLoginStatus(); // Update the nav link to "Sign Out"
+
+            // Only trigger the redirect once and after everything else is set
+            if (window.location.pathname !== "../index.html") {
+              setTimeout(() => {
+                window.location.replace("../index.html"); // Ensure this runs only once
+              }, 2000); // 2 seconds delay
+            }
           } else {
             console.error("No access token in response data:", data);
             document.getElementById("login-message").innerText =
