@@ -3,7 +3,7 @@
 document.addEventListener("DOMContentLoaded", async function () {
   const token = localStorage.getItem("authToken");
   const postId = new URLSearchParams(window.location.search).get("id");
-  const username = "cgrotteland"; // Replace with actual username if different
+  const username = "cgrotteland";
 
   if (!token) {
     alert("You must be logged in to edit or delete a post.");

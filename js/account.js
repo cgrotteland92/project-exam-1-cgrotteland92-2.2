@@ -12,31 +12,31 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
+  // ChatGPT assistance
   function checkLoginStatus() {
     const authToken = localStorage.getItem("authToken");
 
     if (loginLink) {
       if (authToken) {
-        loginLink.innerText = "Sign Out"; // Only used to show "Sign Out" after login
+        loginLink.innerText = "Sign Out";
         let currentPath = window.location.pathname;
 
         if (currentPath.includes("account")) {
-          loginLink.href = "../index.html"; // Go to the home page from account
+          loginLink.href = "../index.html";
         } else if (currentPath.includes("post")) {
-          loginLink.href = "../account/login.html"; // Login page from post
+          loginLink.href = "../account/login.html";
         } else {
-          loginLink.href = "/account/login.html"; // Absolute path to login page
+          loginLink.href = "/account/login.html";
         }
       } else {
         loginLink.innerText = "Log In";
-        loginLink.href = "/account/login.html"; // Default login page path
+        loginLink.href = "/account/login.html";
       }
     } else {
       console.error("login-link element not found in the DOM.");
     }
   }
 
-  // Check the login status when the page loads
   checkLoginStatus();
 
   const loginForm = document.getElementById("login-form");
@@ -78,14 +78,11 @@ document.addEventListener("DOMContentLoaded", function () {
               "Login successful!";
             document.getElementById("login-message").style.color = "green";
 
-            checkLoginStatus(); // Update the nav link to "Sign Out"
+            checkLoginStatus();
 
-            // Only trigger the redirect once and after everything else is set
-            if (window.location.pathname !== "../index.html") {
-              setTimeout(() => {
-                window.location.replace("../index.html"); // Ensure this runs only once
-              }, 2000); // 2 seconds delay
-            }
+            setTimeout(() => {
+              window.location.replace("../index.html");
+            }, 2000);
           } else {
             console.error("No access token in response data:", data);
             document.getElementById("login-message").innerText =
