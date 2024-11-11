@@ -156,28 +156,98 @@ nav .home-link {
 }
 
 /* index.html */
+
+.posts-container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+  padding: 20px;
+  justify-content: center;
+}
+
+.post-link {
+  text-decoration: none;
+  color: inherit;
+}
+
 .post {
-  background-color: #f8efe5;
-  color: #0f1422;
+  display: flex;
+  background-color: #ececec;
+  color: #1c1221;
   border-radius: 12px;
-  margin: 20px auto;
-  padding: 25px;
-  width: 750px;
-  transition: transform 0.3s ease, border-color 0.3s ease; /* Transition for hover effects */
-  cursor: pointer;
+  border: 1px solid #1c1221;
+  overflow: hidden;
+  height: 150px;
+  transition: transform 0.3s ease, background-color 0.3s ease;
 }
 
 .post:hover {
-  transform: translateY(-8px); /* Larger hover effect */
-  border-color: rgba(255, 255, 255, 0.6); /* Stronger border color on hover */
+  background-color: #fff;
 }
 
-.post img {
+.post-image-box {
+  flex: 0 0 150px;
+  max-width: 150px;
+  height: 100%;
+  background-color: #333;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.post-thumbnail {
   width: 100%;
-  max-width: 350px;
-  height: 250px;
-  border-radius: 4px;
+  height: 100%;
   object-fit: cover;
+  border-radius: 4px;
+}
+
+.post-content {
+  flex: 1;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.post-date {
+  font-size: 0.875em;
+  color: #545557; /* Lighter color for the date and read time */
+  margin-bottom: 5px;
+}
+
+.post-title {
+  font-size: 1.25em;
+  font-weight: bold;
+  margin: 5px 0;
+  color: #1c1221;
+}
+
+.post-excerpt {
+  font-size: 0.95em;
+  color: #727171; /* Slightly lighter color for the excerpt */
+}
+
+.see-more-link {
+  color: #1c1221;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .posts-container {
+    grid-template-columns: 1fr;
+  }
+
+  .post {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .post-image-box {
+    max-width: 100%;
+  }
 }
 
 .carousel-container {
@@ -453,10 +523,10 @@ button.next:hover {
   text-align: center;
   line-height: 40px;
   border-radius: 50%;
-  color: #000;
+  color: #0f1422;
   transition: all 0.5s ease;
 }
 .footer-col .social-links a:hover {
   color: #fff;
-  background-color: #000;
+  background-color: #0f1422;
 }

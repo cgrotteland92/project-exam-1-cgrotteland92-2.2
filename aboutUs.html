@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Project Exam</title>
+    <link rel="stylesheet" href="/CSS/style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto&display=swap"
+      rel="stylesheet"
+    />
+    <script
+      src="https://kit.fontawesome.com/ff0f99a23c.js"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body>
+    <header class="header">
+      <nav>
+        <input type="checkbox" id="sidebar-active" />
+        <label for="sidebar-active" class="open-sidebar-button">
+          <i
+            class="fa-solid fa-bars fa-xl"
+            id="menu-icon"
+            style="color: #1c1221"
+          ></i>
+        </label>
+        <label id="overlay" for="sidebar-active"></label>
+        <div class="links-container">
+          <label for="sidebar-active" class="close-sidebar-button">
+            <i
+              class="fa-solid fa-xmark fa-xl"
+              id="close-icon"
+              style="color: #1c1221"
+            ></i>
+          </label>
+          <a class="home-link" href="index.html">Blogging</a>
+          <a href="index.html">Home</a>
+          <a href="aboutUs.html">About Us</a>
+          <a id="login-link" href="./account/login.html">Log in</a>
+        </div>
+      </nav>
+    </header>
+    <main>
+      <h1>About Us</h1>
+      <section>
+        <h2>Our Story</h2>
+        <p>
+          At NextAI, we believe that AI has the power to change lives, and we’re
+          here to make it accessible to businesses of all sizes. Our journey
+          began with a shared vision among three former university classmates
+          who came together at a tech conference in early 2023. With backgrounds
+          in computer science, data ethics, and business strategy, they were
+          united by a common mission: to build AI tools that solve real-world
+          challenges while upholding the highest ethical standards. What started
+          as an idea quickly grew into a thriving team. By the end of our first
+          year, we’d assembled a diverse group of 30 talented individuals who
+          shared our passion for creating AI solutions that make a meaningful
+          impact. From engineers and data scientists to UX designers and
+          customer success specialists, each team member brings unique skills
+          and perspectives to our shared mission.
+        </p>
+      </section>
+      <section>
+        <h2>Our Mission</h2>
+        <p>
+          Our mission is simple yet ambitious: To empower businesses with
+          ethical, user-friendly AI technology that enhances productivity,
+          solves real problems, and fosters growth. We’re focused on creating
+          tools that adapt to the needs of small and medium-sized businesses,
+          allowing them to harness the power of AI without the complexity or
+          high costs. Through our products, we strive to bridge the gap between
+          cutting-edge technology and practical applications, helping businesses
+          improve customer interactions, streamline workflows, and make better
+          decisions.
+        </p>
+      </section>
+      <section>
+        <h2>Meet the Team</h2>
+        <p>
+          Our team is the heart of NexIQ. With expertise spanning from software
+          engineering to product design, each member plays a critical role in
+          developing AI that’s innovative, reliable, and user-centered. Here’s a
+          look at the departments that drive our work: Engineering Team: The
+          backbone of NextAI, our engineers build the scalable infrastructure
+          and AI models that power our products. They collaborate closely with
+          data scientists to ensure that our technology is both powerful and
+          efficient. Data Science Team: Passionate about ethical AI, our data
+          scientists work tirelessly to train and refine our models. Their focus
+          on accuracy, fairness, and data ethics ensures that our solutions are
+          reliable and beneficial to all users. Product & UX Team: This team is
+          dedicated to creating a seamless user experience. They focus on
+          designing intuitive interfaces that make our AI tools easy to use,
+          regardless of technical expertise. Sales & Customer Success Team: Our
+          sales and customer success specialists are here to support you at
+          every step, from onboarding to ongoing assistance. They provide
+          invaluable feedback that helps us continuously improve and adapt our
+          products to real-world needs. Operations and Admin Team: Keeping
+          everything running smoothly, our operations team handles hiring,
+          finances, and legal matters. They play a crucial role in building our
+          supportive, inclusive company culture.
+        </p>
+      </section>
+    </main>
+    <footer class="footer">
+      <div class="footer-container">
+        <div class="row">
+          <div class="footer-col">
+            <h4>Customer Service</h4>
+            <ul>
+              <li>
+                <a href="visit.html">E-mail: info@</a>
+              </li>
+              <li><a href="visit.html">Phone: +47 570 52 007</a></li>
+            </ul>
+          </div>
+          <div class="footer-col">
+            <h4>About</h4>
+            <ul>
+              <li><a href="edit.html">Edit</a></li>
+              <li><a href="privacy.html">Privacy Policy</a></li>
+            </ul>
+          </div>
+          <div class="footer-col">
+            <h4>Follow Us</h4>
+            <div class="social-links">
+              <a href="https://www.facebook.com"
+                ><i class="fa-brands fa-facebook"></i
+              ></a>
+              <a href="https://www.instagram.com"
+                ><i class="fa-brands fa-instagram"></i
+              ></a>
+              <a href="https://www.twitter.com"
+                ><i class="fa-brands fa-x-twitter"></i
+              ></a>
+              <a href="https://www.linkedin.com"
+                ><i class="fa-brands fa-linkedin"></i
+              ></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>
+<script src="/js/authCheck.js"></script>
+<script src="/js/script.js"></script>
+<script src="/js/account.js"></script>
+<script>
+  console.log("Authorization Header:", `Bearer ${token}`);
+</script>

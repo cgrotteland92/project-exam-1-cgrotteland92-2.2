@@ -1,5 +1,4 @@
 "use strict";
-// Function to fetch and display blog posts
 async function getBlogPosts() {
   const options = {
     method: "GET",
@@ -25,16 +24,16 @@ async function getBlogPosts() {
       const postsData = responseData.data;
       const latestPosts = postsData.slice(0, 3);
       let carouselHTML = "";
-      let allPostsHTML = "";
 
-      // Carousel for the latest posts
+      let allPostsHTML = '<div class="posts-container">';
+
+      // Carousel - chatgpt assistance
       latestPosts.forEach((post) => {
         carouselHTML += `<div class="carousel-item">
             <h2>${post.title}</h2>
             <p>By ${post.author.name} on ${new Date(
           post.created
         ).toLocaleDateString()}</p>
-            <p>${post.body.slice(0, 80)}...</p>
             ${
               post.media?.url
                 ? `<img src="${post.media.url}" alt="${post.media.alt}" />`
@@ -71,29 +70,53 @@ async function getBlogPosts() {
         updateCarousel();
       }
 
-      // All remaining posts below the carousel
+      // All posts
+      let initialLoad = 4;
+      let additionalLoad = 4;
       const remainingPosts = postsData.slice(3);
-      remainingPosts.forEach((post) => {
-        allPostsHTML += `
-          <a href="./post/singlePost.html?id=${post.id}" class="post-link">
-            <div class="post">
-              <h2>${post.title}</h2>
-              <p>By ${post.author.name} on ${new Date(
-          post.created
-        ).toLocaleDateString()}</p>
-              ${
-                post.media?.url
-                  ? `<img src="${post.media.url}" alt="${
-                      post.media.alt || "Blog post thumbnail"
-                    }" class="post-thumbnail">`
-                  : ""
-              }
-              <p>${post.body.slice(0, 100)}...</p>
-            </div>
-          </a>`;
-      });
 
-      document.getElementById("all-posts").innerHTML = allPostsHTML;
+      function loadPosts() {
+        const postsToLoad = remainingPosts.splice(0, initialLoad);
+
+        postsToLoad.forEach((post) => {
+          allPostsHTML += `
+            <a href="./post/singlePost.html?id=${post.id}" class="post-link">
+              <div class="post">
+                <div class="post-image-box">
+                  ${
+                    post.media?.url
+                      ? `<img src="${post.media.url}" alt="${
+                          post.media.alt || "Blog post thumbnail"
+                        }" class="post-thumbnail">`
+                      : ""
+                  }
+                </div>
+                <div class="post-content">
+                  <p class="post-date">${new Date(
+                    post.created
+                  ).toLocaleDateString()}</p>
+                  <p class="post-author">By ${post.author.name}</p>
+                  <h2 class="post-title">${post.title}</h2>
+                  <p class="post-excerpt">${post.body.slice(0, 100)}...</p>
+                </div>
+              </div>
+            </a>`;
+        });
+
+        document.getElementById("all-posts").innerHTML = allPostsHTML;
+
+        if (remainingPosts.length === 0) {
+          document.getElementById("see-more").style.display = "none";
+        }
+      }
+
+      loadPosts();
+
+      document.getElementById("see-more").addEventListener("click", (event) => {
+        event.preventDefault();
+        initialLoad = additionalLoad;
+        loadPosts();
+      });
     } else {
       console.error("No data found");
       document.querySelector(".carousel-slide").innerHTML =
@@ -109,10 +132,8 @@ async function getBlogPosts() {
   }
 }
 
-// Function to navigate to the single post page
 function goToPost(postId) {
   window.location.href = `./post/singlePost.html?id=${postId}`;
 }
 
-// Initialize fetching of blog posts
 getBlogPosts();
