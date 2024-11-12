@@ -9,19 +9,10 @@ async function getSinglePost() {
   const postId = getPostIdFromUrl();
   const postContainer = document.getElementById("post-content");
 
-  postContainer.innerHTML = ""; // Clear content initially
+  postContainer.innerHTML = "";
 
   if (!postId) {
     postContainer.innerHTML = "<p>Post not found</p>";
-    return;
-  }
-
-  const token = localStorage.getItem("authToken"); // Retrieve token
-  console.log("Authorization Header:", token); // For debugging
-
-  if (!token) {
-    alert("You must be logged in to view this post.");
-    window.location.href = "/account/login.html";
     return;
   }
 
@@ -31,7 +22,6 @@ async function getSinglePost() {
       {
         method: "GET",
         headers: {
-          Authorization: `Bearer ${token}`,
           "X-Noroff-API-Key": "ca9fdebf-7c0e-4858-8136-c2e58a3c24f0",
           "Content-Type": "application/json",
         },
@@ -53,12 +43,13 @@ async function getSinglePost() {
 
 function displayPost(post) {
   const postContainer = document.getElementById("post-content");
+  const authToken = localStorage.getItem("authToken");
+
   if (!post || !post.title) {
     postContainer.innerHTML = "<p>Post not found</p>";
     return;
   }
 
-  // Display the post content, edit, and delete buttons
   postContainer.innerHTML = `
     <h1>${post.title}</h1>
     <p>${post.body}</p>
@@ -69,16 +60,20 @@ function displayPost(post) {
           }" class="post-image">`
         : ""
     }
-    <button id="edit-post-button">Edit</button>
-    <button id="delete-post-button">Delete</button>
   `;
 
-  // Attach event listeners for edit and delete buttons
-  const editButton = document.getElementById("edit-post-button");
-  const deleteButton = document.getElementById("delete-post-button");
+  if (authToken) {
+    postContainer.innerHTML += `
+      <button id="edit-post-button">Edit</button>
+      <button id="delete-post-button">Delete</button>
+    `;
 
-  editButton.addEventListener("click", () => editPost(post.id));
-  deleteButton.addEventListener("click", () => deletePost(post.id));
+    const editButton = document.getElementById("edit-post-button");
+    const deleteButton = document.getElementById("delete-post-button");
+
+    editButton.addEventListener("click", () => editPost(post.id));
+    deleteButton.addEventListener("click", () => deletePost(post.id));
+  }
 }
 
 function editPost(postId) {
@@ -121,7 +116,6 @@ async function deletePost(postId) {
   }
 }
 
-// Shareable link function
 function displayShareableLink() {
   const shareableLink = `${window.location.href}`;
   const linkContainer = document.getElementById("share-link");
@@ -140,6 +134,5 @@ function displayShareableLink() {
   });
 }
 
-// Initialize functions
 getSinglePost();
 displayShareableLink();
