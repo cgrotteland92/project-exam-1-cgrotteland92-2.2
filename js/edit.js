@@ -1,5 +1,5 @@
 "use strict";
-
+// ChatGPT assistance
 document.addEventListener("DOMContentLoaded", async function () {
   const token = localStorage.getItem("authToken");
   const postId = new URLSearchParams(window.location.search).get("id");
@@ -24,7 +24,6 @@ document.addEventListener("DOMContentLoaded", async function () {
   const deleteButton = document.getElementById("delete-button");
   const editMessage = document.getElementById("edit-message");
 
-  // Fetch existing post data to pre-fill the form
   async function fetchPostData() {
     try {
       const response = await fetch(
@@ -55,7 +54,7 @@ document.addEventListener("DOMContentLoaded", async function () {
 
   await fetchPostData();
 
-  // Handle post update
+  // Edit
   editForm.addEventListener("submit", async function (event) {
     event.preventDefault();
 
@@ -93,7 +92,7 @@ document.addEventListener("DOMContentLoaded", async function () {
     }
   });
 
-  // Handle post deletion
+  // Delete
   deleteButton.addEventListener("click", async function () {
     if (!confirm("Are you sure you want to delete this post?")) return;
 
@@ -114,7 +113,7 @@ document.addEventListener("DOMContentLoaded", async function () {
         alert("Post deleted successfully!");
         window.location.href = "../index.html";
       } else {
-        throw new Error("Failed to delete post. It may not exist.");
+        throw new Error("Failed to delete post.");
       }
     } catch (error) {
       console.error("Error deleting post:", error);

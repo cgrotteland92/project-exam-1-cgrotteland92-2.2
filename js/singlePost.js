@@ -116,7 +116,7 @@ async function deletePost(postId) {
   }
 }
 
-function displayShareableLink() {
+function ShareableLink() {
   const shareableLink = `${window.location.href}`;
   const linkContainer = document.getElementById("share-link");
 
@@ -135,4 +135,4 @@ function displayShareableLink() {
 }
 
 getSinglePost();
-displayShareableLink();
+ShareableLink();
