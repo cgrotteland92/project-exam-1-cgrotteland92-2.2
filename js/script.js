@@ -30,7 +30,7 @@ async function getBlogPosts() {
     if (responseData.data) {
       const postsData = responseData.data;
 
-      // Render Carousel
+      // Carousel
       const latestPosts = postsData.slice(0, 3);
       let carouselHTML = "";
       latestPosts.forEach((post) => {
@@ -44,7 +44,9 @@ async function getBlogPosts() {
               ? `<img src="${post.media.url}" alt="${post.media.alt || ""}" />`
               : ""
           }
-          <button onclick="goToPost('${post.id}')">Read More</button>
+          <button class="read-more" onclick="goToPost('${
+            post.id
+          }')">Read More</button>
         </div>`;
       });
       document.querySelector(".carousel-slide").innerHTML = carouselHTML;
@@ -67,7 +69,7 @@ async function getBlogPosts() {
       });
 
       //Trending Posts
-      const trendingPosts = getRandomPosts(postsData, 4);
+      const trendingPosts = getRandomPosts(postsData, 3);
       let trendingHTML = "";
       trendingPosts.forEach((post) => {
         trendingHTML += `<a href="./post/singlePost.html?id=${

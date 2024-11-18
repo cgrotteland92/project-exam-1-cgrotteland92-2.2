@@ -8,8 +8,8 @@ body {
   min-height: 100vh;
   margin: 0;
   padding-top: 65px;
-  background-image: url(../assets/Screenshot\ 2024-11-10\ 162528.png);
-  color: #0f1422;
+  background-color: #0e0e10;
+  color: #fff;
 }
 
 /*Header*/
@@ -26,9 +26,18 @@ nav {
   flex-direction: row;
   align-items: center;
 }
+.home-link {
+  font-size: 3rem;
+  font-weight: bold;
+  color: #a970ff;
+  text-decoration: none;
+  padding: 0 20px;
+  display: block;
+  align-items: center;
+}
 nav a {
   text-decoration: none;
-  color: #0f1422;
+  color: #fff;
   padding: 0 20px;
   display: block;
   align-items: center;
@@ -36,14 +45,14 @@ nav a {
 }
 
 nav a:hover {
-  color: #f0664e;
+  color: #a970ff;
 }
 
 .links-container a::after {
   content: "";
   width: 0%;
   height: 2px;
-  background-color: #f0664e;
+  background-color: #a970ff;
   display: block;
   margin: auto;
   transition: 0.5s;
@@ -126,7 +135,7 @@ nav .home-link {
   padding: 0.75rem;
   font-size: 1rem;
   color: #0f1422;
-  background-color: #f0664e;
+  background-color: #a970ff;
   border: none;
   border-radius: 4px;
   cursor: pointer;
@@ -135,7 +144,7 @@ nav .home-link {
 }
 
 .form-container button[type="submit"]:hover {
-  background-color: #f0664e;
+  background-color: #a970ff;
 }
 
 .form-container p {
@@ -146,7 +155,7 @@ nav .home-link {
 }
 
 .form-container p a {
-  color: #007bff;
+  color: #a970ff;
   text-decoration: none;
   font-weight: 600;
 }
@@ -158,15 +167,16 @@ nav .home-link {
 /* index.html */
 #trending {
   max-width: 1300px;
+  background-color: #1f1f23;
   margin: 0 auto;
-  padding: 20px;
+  padding: 50px 20px;
   text-align: center;
 }
 
 #trending h2 {
   font-size: 2rem;
   margin-bottom: 20px;
-  color: #1c1221;
+  color: #fff;
 }
 
 #trending-posts {
@@ -178,21 +188,22 @@ nav .home-link {
 
 #trending-posts img {
   width: 100%;
-  height: auto;
+  height: 250px;
   object-fit: cover;
 }
 
+#trending-posts img:hover {
+  filter: brightness(0.8);
+  transition: filter 0.3s ease;
+}
+
 #trending-posts {
-  background-color: #ececec;
-  color: #1c1221;
-  border: 2px solid #1c1221;
+  color: #fff;
   overflow: hidden;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 #trending-posts .post-title {
-  color: #1c1221;
+  color: #fff;
   font-weight: bold;
   font-size: 1.2rem;
   margin: 0.5rem 0;
@@ -201,14 +212,14 @@ nav .home-link {
 #trending-posts .post-author,
 #trending-posts .post-date {
   font-size: 0.9rem;
-  color: #666;
+  color: #a1adb8;
   margin: 0;
 }
 
 #older-posts {
-  max-width: 1300px;
+  max-width: 1400px;
   margin: 0 auto;
-  padding: 20px;
+  padding: 50px 20px;
   text-align: center;
 }
 .posts-container {
@@ -226,16 +237,15 @@ nav .home-link {
 
 .post {
   display: flex;
-  background-color: #ececec;
-  color: #1c1221;
-  border: 1px solid #1c1221;
+  background-color: #1f1f23;
+  color: #fff;
   overflow: hidden;
   height: 150px;
   transition: transform 0.3s ease, background-color 0.3s ease;
 }
 
 .post:hover {
-  background-color: #fff;
+  background-color: #1f1f2388;
 }
 
 .post-image-box {
@@ -252,7 +262,6 @@ nav .home-link {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  border-radius: 4px;
 }
 
 .post-content {
@@ -265,7 +274,7 @@ nav .home-link {
 
 .post-date {
   font-size: 0.875em;
-  color: #545557;
+  color: #a1adb8;
   margin-bottom: 5px;
 }
 
@@ -273,12 +282,12 @@ nav .home-link {
   font-size: 1.25em;
   font-weight: bold;
   margin: 5px 0;
-  color: #1c1221;
+  color: #fff;
 }
 
 .post-excerpt {
   font-size: 0.95em;
-  color: #727171;
+  color: #a1adb8;
 }
 
 .see-more-link {
@@ -288,7 +297,7 @@ nav .home-link {
 }
 
 .see-more-link {
-  color: #1c1221;
+  color: #fff;
   text-decoration: underline;
   cursor: pointer;
 }
@@ -296,8 +305,9 @@ nav .home-link {
 .carousel-container {
   position: relative;
   max-width: 1100px;
-  overflow: hidden;
+  padding-bottom: 50px;
   margin: auto;
+  overflow: hidden;
 }
 
 .carousel-slide {
@@ -310,11 +320,16 @@ nav .home-link {
   box-sizing: border-box;
   text-align: center;
   padding: 20px;
+  display: flex;
+  flex-direction: column; /* Stack content vertically */
+  align-items: center;
 }
 
 .carousel-item img {
+  width: 90%; /* Ensure the image scales to the container width */
   max-width: 100%;
-  height: 450px;
+  height: auto;
+  max-height: 650px; /* Cap the height for large screens */
   border-radius: 8px;
   margin: 10px 0;
   object-fit: cover;
@@ -330,6 +345,48 @@ nav .home-link {
   margin-bottom: 15px;
 }
 
+button.next,
+button.prev {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: rgba(0, 0, 0, 0.5);
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  font-size: 1.5rem;
+  cursor: pointer;
+  border-radius: 50%;
+  z-index: 10;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+button.next {
+  right: 10px;
+}
+
+button.prev {
+  left: 10px;
+}
+
+button.read-more {
+  display: inline-block;
+  margin-top: 15px;
+  padding: 10px 20px;
+  font-size: 1rem;
+  font-weight: bold;
+  color: #fff;
+  background-color: #a970ff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  text-transform: uppercase;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+button.read-more:hover {
+  background-color: #a970ffb9;
+}
 .post-link {
   text-decoration: none;
   color: inherit;
@@ -340,10 +397,7 @@ nav .home-link {
   max-width: 800px;
   margin: 20px auto;
   padding: 20px;
-  background: #fff;
-  border-radius: 8px;
-  border: 1px solid #d9cab3;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  background: #1f1f23;
 }
 
 .post-image {
@@ -362,7 +416,7 @@ nav .home-link {
   display: inline-block;
   padding: 10px 15px;
   color: #fff;
-  background-color: #ff6f61;
+  background-color: #a970ff;
   border: none;
   border-radius: 5px;
   text-decoration: none;
@@ -373,14 +427,21 @@ nav .home-link {
 }
 
 .share-button:hover {
-  background-color: #e65c52;
+  background-color: #a970ffb9;
 }
 
 /* Responsive Styling */
 
 @media (min-width: 900px) {
+  .carousel-item img {
+    max-height: 600px;
+  }
+
+  .carousel-item {
+    padding: 10px;
+  }
   #trending-posts {
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(3, 1fr);
   }
 }
 @media (max-width: 768px) {
@@ -412,8 +473,19 @@ nav .home-link {
   }
 }
 @media (max-width: 600px) {
+  .carousel-item img {
+    max-height: 200px;
+  }
+
+  .carousel-button {
+    padding: 5px 10px;
+  }
+
+  .carousel-container {
+    max-width: 90%;
+  }
   #trending-posts {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(1, 1fr);
   }
   .form-container {
     padding: 1.5rem;
@@ -505,32 +577,6 @@ nav .home-link {
   }
 }
 
-button.prev,
-button.next {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  background: rgba(0, 0, 0, 0.5);
-  color: white;
-  border: none;
-  padding: 10px;
-  cursor: pointer;
-  font-size: 1.5em;
-}
-
-button.prev {
-  left: 0;
-}
-
-button.next {
-  right: 0;
-}
-
-button.prev:hover,
-button.next:hover {
-  background: rgba(0, 0, 0, 0.7);
-}
-
 /*Footer*/
 .footer-container {
   max-width: 1170px;
@@ -544,7 +590,7 @@ button.next:hover {
   list-style: none;
 }
 .footer {
-  background-color: #ececec;
+  background-color: #1f1f23;
   padding: 70px 0;
 }
 .footer-col {
@@ -553,7 +599,7 @@ button.next:hover {
 }
 .footer-col h4 {
   font-size: 18px;
-  color: #0f1422;
+  color: #fff;
   margin-bottom: 35px;
   font-weight: 600;
   position: relative;
@@ -575,12 +621,12 @@ button.next:hover {
   font-size: 16px;
   text-decoration: none;
   font-weight: 800;
-  color: #0f1422;
+  color: #fff;
   display: block;
   transition: all 0.3s ease;
 }
 .footer-col ul li a:hover {
-  color: #f0664e;
+  color: #a970ff;
   padding-left: 8px;
 }
 .footer-col .social-links a {
@@ -592,10 +638,10 @@ button.next:hover {
   text-align: center;
   line-height: 40px;
   border-radius: 50%;
-  color: #0f1422;
+  color: #fff;
   transition: all 0.5s ease;
 }
 .footer-col .social-links a:hover {
   color: #fff;
-  background-color: #0f1422;
+  background-color: #a970ff;
 }
