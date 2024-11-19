@@ -31,9 +31,10 @@ document.addEventListener("DOMContentLoaded", async function () {
         `https://v2.api.noroff.dev/blog/posts/${username}/${postId}`,
         {
           headers: {
-            Authorization: `Bearer ${token}`,
             "X-Noroff-API-Key": "ca9fdebf-7c0e-4858-8136-c2e58a3c24f0",
             "Content-Type": "application/json",
+            Authorization:
+              "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiY2dyb3R0ZWxhbmQiLCJlbWFpbCI6ImNocmdybzAyMTIyQHN0dWQubm9yb2ZmLm5vIiwiaWF0IjoxNzI5NzA4ODYzfQ.7JaI651Kw-OpJGMp-HlM4n3WUcV_12YHYfzJygZZWRA",
           },
         }
       );
@@ -41,27 +42,32 @@ document.addEventListener("DOMContentLoaded", async function () {
       if (response.ok) {
         const data = await response.json();
         const post = data.data;
-        titleInput.value = post.title;
-        bodyInput.value = post.body;
-        if (post.media?.url) imageInput.value = post.media.url;
+
+        titleInput.value = post.title || "";
+        bodyInput.value = post.body || "";
+        tagInput.value = post.tags?.join(", ") || "";
+        if (post.media?.url) imageInput.value = post.media.url || "";
       } else {
-        throw new Error("Post not found or unable to fetch data.");
+        throw new Error("Failed to fetch post data.");
       }
     } catch (error) {
       console.error("Error fetching post data:", error);
-      alert("Error loading post data.");
+      alert("Error loading post data. Please try again.");
     }
   }
 
   await fetchPostData();
 
-  // Edit
+  // Edit functionality
   editForm.addEventListener("submit", async function (event) {
     event.preventDefault();
 
     const updatedData = {
       title: titleInput.value,
       body: bodyInput.value,
+      tags: tagInput.value
+        ? tagInput.value.split(",").map((tag) => tag.trim())
+        : [],
       media: imageInput.value ? { url: imageInput.value } : null,
     };
 
@@ -93,7 +99,7 @@ document.addEventListener("DOMContentLoaded", async function () {
     }
   });
 
-  // Delete
+  // Delete functionality
   deleteButton.addEventListener("click", async function () {
     if (!confirm("Are you sure you want to delete this post?")) return;
 

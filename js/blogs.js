@@ -1,11 +1,25 @@
 "use strict";
 
 async function allNewsPage() {
+  // Retrieve the token from localStorage
+  const token = localStorage.getItem("authToken");
+
+  // Redirect if the token is missing
+  if (!token) {
+    alert("You must be logged in to view this page.");
+    window.location.href = "/account/login.html";
+    return;
+  }
+
+  console.log("Token retrieved in blogs.js:", token); // Debugging log
+
+  // Options with Authorization header
   const options = {
     method: "GET",
     headers: {
       "X-Noroff-API-Key": "ca9fdebf-7c0e-4858-8136-c2e58a3c24f0",
       "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
     },
   };
 
