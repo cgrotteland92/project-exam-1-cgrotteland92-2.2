@@ -20,6 +20,7 @@ document.addEventListener("DOMContentLoaded", async function () {
   const editForm = document.getElementById("edit-form");
   const titleInput = document.getElementById("title");
   const bodyInput = document.getElementById("body");
+  const tagInput = document.getElementById("tag");
   const imageInput = document.getElementById("image");
   const deleteButton = document.getElementById("delete-button");
   const editMessage = document.getElementById("edit-message");
