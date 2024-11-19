@@ -36,36 +36,36 @@
               style="color: #1c1221"
             ></i>
           </label>
-          <a class="home-link" href="/index.html">Blogging</a>
+          <a class="home-link" href="/index.html">TechRadar</a>
           <a href="/index.html">Home</a>
-          <a href="/aboutUs.html">About Us</a>
+          <a href="/blogs.html">Blogs</a>
           <a id="login-link" href="/account/login.html">Log in</a>
         </div>
       </nav>
     </header>
     <main>
-      <h1>Edit Post</h1>
-      <form id="edit-form">
-        <label for="title">Title:</label>
-        <input type="text" id="title" name="title" required />
+      <section class="edit-section">
+        <h1>Edit Post</h1>
+        <form id="edit-form">
+          <label for="title">Title:</label>
+          <input type="text" id="title" name="title" required />
 
-        <label for="body">Content:</label>
-        <textarea id="body" name="body" required></textarea>
+          <label for="body">Content:</label>
+          <textarea id="body" name="body" required></textarea>
 
-        <label for="tag">Tag:</label>
-        <input type="text" id="tag" name="tag" />
+          <label for="tag">Tag:</label>
+          <input type="text" id="tag" name="tag" />
 
-        <label for="image">Image URL:</label>
-        <input type="text" id="image" name="image" />
+          <label for="image">Image URL:</label>
+          <input type="text" id="image" name="image" />
 
-        <button type="submit">Update Post</button>
-      </form>
-
-      <!-- Message for Updates -->
-      <p id="edit-message"></p>
-
-      <!-- Delete Post Button -->
-      <button id="delete-button" type="button">Delete Post</button>
+          <div class="button-group">
+            <button type="submit" id="update-button">Update Post</button>
+            <button id="delete-button" type="button">Delete Post</button>
+          </div>
+        </form>
+        <p id="edit-message"></p>
+      </section>
     </main>
     <footer class="footer">
       <div class="footer-container">
@@ -114,6 +114,3 @@
     <script src="../js/edit.js"></script>
   </body>
 </html>
-<script>
-  console.log("Authorization Header:", `Bearer ${token}`);
-</script>

@@ -1,19 +1,8 @@
 "use strict";
 
 async function allNewsPage() {
-  // Retrieve the token from localStorage
   const token = localStorage.getItem("authToken");
 
-  // Redirect if the token is missing
-  if (!token) {
-    alert("You must be logged in to view this page.");
-    window.location.href = "/account/login.html";
-    return;
-  }
-
-  console.log("Token retrieved in blogs.js:", token); // Debugging log
-
-  // Options with Authorization header
   const options = {
     method: "GET",
     headers: {

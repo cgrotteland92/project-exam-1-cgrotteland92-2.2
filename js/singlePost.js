@@ -1,5 +1,5 @@
 "use strict";
-
+// ChatGPT assistance
 function getPostIdFromUrl() {
   const urlParams = new URLSearchParams(window.location.search);
   return urlParams.get("id");
