@@ -54,7 +54,10 @@ function displayPost(post) {
 
   postContainer.innerHTML = `
     <h1>${post.title}</h1>
-    <p>${post.body}</p>
+    <div class="post-info">
+      <span>By ${post.author.name}</span>
+      <span>Date: ${new Date(post.created).toLocaleDateString()}</span>
+    </div>
     ${
       post.media?.url
         ? `<img src="${post.media.url}" alt="${
@@ -62,6 +65,10 @@ function displayPost(post) {
           }" class="post-image">`
         : ""
     }
+    <p>${post.body}</p>
+     <div class="post-actions">
+      <a id="share-link" href="#" target="_blank" class="share-button">Copy Link</a>
+    </div>
   `;
 
   if (authToken) {
@@ -76,43 +83,6 @@ function displayPost(post) {
 function editPost(postId) {
   window.location.href = `edit.html?id=${postId}`;
 }
-
-async function deletePost(postId) {
-  const token = localStorage.getItem("authToken");
-  if (!token) {
-    alert("You must be logged in to delete a post.");
-    return;
-  }
-
-  const confirmation = confirm("Are you sure you want to delete this post?");
-  if (!confirmation) return;
-
-  try {
-    const response = await fetch(
-      `https://v2.api.noroff.dev/blog/posts/cgrotteland/${postId}`,
-      {
-        method: "DELETE",
-        headers: {
-          Authorization: `Bearer ${token}`,
-          "X-Noroff-API-Key": "ca9fdebf-7c0e-4858-8136-c2e58a3c24f0",
-          "Content-Type": "application/json",
-        },
-      }
-    );
-
-    if (response.ok) {
-      alert("Post deleted successfully!");
-      window.location.href = "../index.html";
-    } else {
-      console.error("Failed to delete post:", response.statusText);
-      alert("Failed to delete post. You may not have permission.");
-    }
-  } catch (error) {
-    console.error("Error deleting post:", error);
-    alert("An error occurred while deleting the post.");
-  }
-}
-
 function ShareableLink() {
   const shareableLink = `${window.location.href}`;
   const linkContainer = document.getElementById("share-link");

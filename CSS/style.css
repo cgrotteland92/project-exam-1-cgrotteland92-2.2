@@ -454,6 +454,42 @@ button.read-more:hover {
   color: inherit;
 }
 /*blogs.html*/
+.explore-section {
+  text-align: center;
+  padding: 40px 20px;
+}
+
+.explore-image img {
+  width: 100%;
+  max-width: 1200px;
+  height: auto;
+  border-radius: 8px;
+  object-fit: cover;
+  margin-bottom: 20px;
+}
+
+.explore-text h1 {
+  font-size: 2.5rem;
+  margin-bottom: 10px;
+  color: #fff;
+}
+
+.explore-text p {
+  font-size: 1.2rem;
+  line-height: 1.5;
+  color: #fff;
+}
+
+@media (max-width: 768px) {
+  .explore-text h1 {
+    font-size: 2rem;
+  }
+
+  .explore-text p {
+    font-size: 1rem;
+  }
+}
+
 .filter-container {
   margin: 20px 0;
   text-align: center;
@@ -541,26 +577,82 @@ button.read-more:hover {
   color: inherit;
 }
 
-/*post/index.html*/
+/*singlepost.html*/
 .single-post-container {
-  max-width: 800px;
+  max-width: 1200px;
   margin: 20px auto;
   padding: 20px;
   background: #1f1f23;
 }
 
-.post-image {
-  width: 100%;
-  height: auto;
+#post-content {
+  max-width: 650px;
+  margin: 40px auto;
+  padding: 20px;
   border-radius: 8px;
-  margin: 20px 0;
 }
 
-.post-body {
-  font-size: 1.1em;
+#post-content h1 {
+  font-size: 3rem;
+  margin-bottom: 20px;
+  color: #fff;
+  text-align: center;
+}
+
+#post-content p {
+  font-size: 1.2rem;
   line-height: 1.6;
+  margin-bottom: 15px;
+  color: #fff;
 }
 
+.post-image {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  margin: 20px 0;
+  border-radius: 8px;
+}
+
+#post-content .post-info {
+  font-size: 0.9rem;
+  color: #a1adb8;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+#post-content .post-info span {
+  margin-right: 10px;
+}
+
+@media (max-width: 768px) {
+  #post-content {
+    padding: 15px;
+    margin: 20px;
+  }
+
+  #post-content h1 {
+    font-size: 2rem;
+  }
+
+  #post-content p {
+    font-size: 0.9rem;
+  }
+}
+
+#edit-post-button {
+  display: inline-block;
+  padding: 10px 15px;
+  margin-top: 5px;
+  color: #000;
+  background-color: #a1adb8;
+  border: none;
+  border-radius: 5px;
+  text-decoration: none;
+  font-size: 1em;
+  text-align: center;
+  cursor: pointer;
+}
 .share-button {
   display: inline-block;
   padding: 10px 15px;
