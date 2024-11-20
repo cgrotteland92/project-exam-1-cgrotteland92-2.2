@@ -24,7 +24,7 @@
           <i
             class="fa-solid fa-bars fa-xl"
             id="menu-icon"
-            style="color: #1c1221"
+            style="color: #fff"
           ></i>
         </label>
         <label id="overlay" for="sidebar-active"></label>
@@ -33,7 +33,7 @@
             <i
               class="fa-solid fa-xmark fa-xl"
               id="close-icon"
-              style="color: #1c1221"
+              style="color: #fff"
             ></i>
           </label>
           <a class="home-link" href="index.html">TechRadar</a>
@@ -43,7 +43,17 @@
         </div>
       </nav>
     </header>
-    <main>
+    <main class="index-container">
+      <section id="welcome-section">
+        <div class="welcome-content">
+          <h1>Welcome to TechRadar</h1>
+          <p>We cover the latest trends and stories in the tech industry</p>
+        </div>
+      </section>
+      <section id="trending">
+        <h2>Trending Posts</h2>
+        <div id="trending-posts"></div>
+      </section>
       <section id="carousel">
         <div class="carousel-container">
           <div class="carousel-slide"></div>
@@ -51,10 +61,7 @@
           <button class="next">&#10095;</button>
         </div>
       </section>
-      <section id="trending">
-        <h2>Trending Posts</h2>
-        <div id="trending-posts"></div>
-      </section>
+
       <section id="older-posts">
         <h2>Older Posts</h2>
         <div id="all-posts"></div>
@@ -63,40 +70,34 @@
     </main>
     <footer class="footer">
       <div class="footer-container">
-        <div class="row">
-          <div class="footer-col">
-            <h4>Customer Service</h4>
-            <ul>
-              <li>
-                <a href="visit.html">E-mail: info@</a>
-              </li>
-              <li><a href="visit.html">Phone: +47 570 52 007</a></li>
-            </ul>
+        <div class="footer-section social-section">
+          <h4>Follow Us</h4>
+          <div class="social-links">
+            <a href="https://www.facebook.com"
+              ><i class="fa-brands fa-facebook"></i
+            ></a>
+            <a href="https://www.instagram.com"
+              ><i class="fa-brands fa-instagram"></i
+            ></a>
+            <a href="https://www.twitter.com"
+              ><i class="fa-brands fa-x-twitter"></i
+            ></a>
+            <a href="https://www.linkedin.com"
+              ><i class="fa-brands fa-linkedin"></i
+            ></a>
           </div>
-          <div class="footer-col">
-            <h4>About</h4>
-            <ul>
-              <li><a href="edit.html">Edit</a></li>
-              <li><a href="privacy.html">Privacy Policy</a></li>
-            </ul>
-          </div>
-          <div class="footer-col">
-            <h4>Follow Us</h4>
-            <div class="social-links">
-              <a href="https://www.facebook.com"
-                ><i class="fa-brands fa-facebook"></i
-              ></a>
-              <a href="https://www.instagram.com"
-                ><i class="fa-brands fa-instagram"></i
-              ></a>
-              <a href="https://www.twitter.com"
-                ><i class="fa-brands fa-x-twitter"></i
-              ></a>
-              <a href="https://www.linkedin.com"
-                ><i class="fa-brands fa-linkedin"></i
-              ></a>
-            </div>
-          </div>
+        </div>
+        <div class="footer-section newsletter-section">
+          <h4>Join Our Newsletter</h4>
+          <form id="newsletter-form">
+            <input
+              type="email"
+              id="newsletter-email"
+              placeholder="Enter your email"
+              required
+            />
+            <button type="submit">Subscribe</button>
+          </form>
         </div>
       </div>
     </footer>

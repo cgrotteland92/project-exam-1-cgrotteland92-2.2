@@ -67,14 +67,9 @@ function displayPost(post) {
   if (authToken) {
     postContainer.innerHTML += `
       <button id="edit-post-button">Edit</button>
-      <button id="delete-post-button">Delete</button>
     `;
-
     const editButton = document.getElementById("edit-post-button");
-    const deleteButton = document.getElementById("delete-post-button");
-
     editButton.addEventListener("click", () => editPost(post.id));
-    deleteButton.addEventListener("click", () => deletePost(post.id));
   }
 }
 
