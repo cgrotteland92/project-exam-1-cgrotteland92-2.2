@@ -35,22 +35,32 @@
             </nav>
         </header>
     <main>
-      <h1>Welcome</h1>
-      <form id="login-form" class="form-container">
-        <label for="email">Email:</label>
-        <input type="email" id="email" name="email" required autocomplete="email">
+      <div class="form-page">
+        <div class="image-container">
+          <img
+            src="https://images.unsplash.com/photo-1487017159836-4e23ece2e4cf?q=80&w=2071&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+            alt="Login Illustration"
+          />
+        </div>
+        <div class="form-container">
+          <form id="login-form">
+            <h2>Login</h2>
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required autocomplete="email">
     
-        <label for="password">Password:</label>
-        <input type="password" id="password" name="password" required autocomplete="current-password">
-
-        <label>
-            <input type="checkbox" id="togglePassword"> Show Password
-        </label>
-        <button type="submit">Login</button>
-        <p>Don’t have an account? <a href="register.html">Register here</a>.</p>
-    </form>
-    <div id="login-message"></div>
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required autocomplete="current-password">
     
+            <label>
+              <input type="checkbox" id="togglePassword"> Show Password
+            </label>
+    
+            <button type="submit">Login</button>
+            <p>Don't have an account? <a href="register.html">Register here</a>.</p>
+          </form>
+          <div id="login-message"></div>
+        </div>
+      </div>
     </main>
     <footer class="footer">
       <div class="footer-container">
