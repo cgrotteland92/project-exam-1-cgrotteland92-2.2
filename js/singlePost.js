@@ -1,5 +1,4 @@
 "use strict";
-
 function getPostIdFromUrl() {
   const urlParams = new URLSearchParams(window.location.search);
   return urlParams.get("id");
@@ -79,9 +78,11 @@ function displayPost(post) {
     const editButton = document.getElementById("edit-post-button");
     editButton.addEventListener("click", () => editPost(post.id));
   }
+
+  ShareableLink();
 }
 
-//Trending Posts
+// Trending Posts
 async function fetchTrendingPosts() {
   const trendingList = document.querySelector(".trending-list");
 
@@ -108,9 +109,7 @@ async function fetchTrendingPosts() {
       <li class="trending-item">
           <a href="singlePost.html?id=${post.id}" class="trending-link">
             <div class="trending-content">
-              <img src="${
-                post.media?.url || "https://via.placeholder.com/80"
-              }" alt="${post.title}" />
+              <img src="${post.media?.url}" alt="${post.title}" />
               <div>
                 <h3>${post.title}</h3>
               </div>
@@ -124,7 +123,7 @@ async function fetchTrendingPosts() {
       console.error("Failed to fetch trending posts:", response.statusText);
     }
   } catch (error) {
-    console.error("Error fetching trending posts:", error);
+    console.error("Error: ", error);
   }
 }
 
@@ -136,6 +135,11 @@ function editPost(postId) {
 function ShareableLink() {
   const shareableLink = `${window.location.href}`;
   const linkContainer = document.getElementById("share-link");
+
+  if (!linkContainer) {
+    console.error("Share link element not found.");
+    return;
+  }
 
   linkContainer.addEventListener("click", (event) => {
     event.preventDefault();
@@ -151,6 +155,6 @@ function ShareableLink() {
   });
 }
 
+// Initialize
 getSinglePost();
 fetchTrendingPosts();
-ShareableLink();
