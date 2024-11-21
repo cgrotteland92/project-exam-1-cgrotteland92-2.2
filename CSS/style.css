@@ -13,11 +13,16 @@ body {
 }
 
 /*Header*/
-nav {
-  height: 80px;
+.header {
   display: flex;
-  justify-content: flex-end;
   align-items: center;
+  justify-content: space-between;
+  background-color: #0e0e10;
+  padding: 10px 20px;
+}
+
+nav {
+  position: relative;
 }
 .links-container {
   height: 100%;
@@ -36,6 +41,7 @@ nav {
   align-items: center;
 }
 nav a {
+  font-size: 1.5rem;
   text-decoration: none;
   color: #fff;
   padding: 0 20px;
@@ -48,18 +54,6 @@ nav a:hover {
   color: #5865f2;
 }
 
-.links-container a::after {
-  content: "";
-  width: 0%;
-  height: 2px;
-  background-color: #5865f2;
-  display: block;
-  margin: auto;
-  transition: 0.5s;
-}
-nav .home-link {
-  margin-right: auto;
-}
 #sidebar-active {
   display: none;
   cursor: pointer;
