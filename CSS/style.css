@@ -57,9 +57,6 @@ nav a:hover {
   margin: auto;
   transition: 0.5s;
 }
-.links-container a:hover::after {
-  width: 100%;
-}
 nav .home-link {
   margin-right: auto;
 }
@@ -953,6 +950,40 @@ footer {
   }
   #trending-posts {
     grid-template-columns: repeat(3, 1fr);
+  }
+}
+@media (max-width: 866px) {
+  .links-container {
+    flex-direction: column;
+    align-items: flex-start;
+    position: fixed;
+    top: 0;
+    right: -100%;
+    z-index: 10;
+    width: 300px;
+    background-color: #1f1f23;
+    transition: 0.75s ease-out;
+  }
+  nav .home-link {
+    display: none;
+  }
+  nav a {
+    box-sizing: border-box;
+    height: auto;
+    width: 100%;
+    padding: 20px 30px;
+    justify-content: center;
+  }
+  nav a::after {
+    display: none;
+  }
+  .open-sidebar-button,
+  .close-sidebar-button {
+    padding: 20px;
+    display: block;
+  }
+  #sidebar-active:checked ~ .links-container {
+    right: 0;
   }
 }
 @media (max-width: 768px) {
