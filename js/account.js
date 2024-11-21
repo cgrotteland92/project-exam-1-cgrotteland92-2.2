@@ -12,33 +12,6 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
-  // ChatGPT assistance
-  function checkLoginStatus() {
-    const authToken = localStorage.getItem("authToken");
-
-    if (loginLink) {
-      if (authToken) {
-        loginLink.innerText = "Sign Out";
-        let currentPath = window.location.pathname;
-
-        if (currentPath.includes("account")) {
-          loginLink.href = "../index.html";
-        } else if (currentPath.includes("post")) {
-          loginLink.href = "../account/login.html";
-        } else {
-          loginLink.href = "/account/login.html";
-        }
-      } else {
-        loginLink.innerText = "Log In";
-        loginLink.href = "/account/login.html";
-      }
-    } else {
-      console.error("login-link element not found in the DOM.");
-    }
-  }
-
-  checkLoginStatus();
-
   const loginForm = document.getElementById("login-form");
 
   if (loginForm) {

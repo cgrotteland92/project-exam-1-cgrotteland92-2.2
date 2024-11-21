@@ -1,4 +1,4 @@
-const isAdminPage = window.location.pathname.includes("admin");
+const isAdminPage = window.location.pathname.endsWith("edit.html");
 
 if (isAdminPage) {
   const token = localStorage.getItem("authToken");
