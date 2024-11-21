@@ -1,10 +1,11 @@
 "use strict";
-// ChatGPT assistance
+
 function getPostIdFromUrl() {
   const urlParams = new URLSearchParams(window.location.search);
   return urlParams.get("id");
 }
 
+// Single Post
 async function getSinglePost() {
   const postId = getPostIdFromUrl();
   const postContainer = document.getElementById("post-content");
@@ -66,7 +67,7 @@ function displayPost(post) {
         : ""
     }
     <p>${post.body}</p>
-     <div class="post-actions">
+    <div class="post-actions">
       <a id="share-link" href="#" target="_blank" class="share-button">Copy Link</a>
     </div>
   `;
@@ -80,9 +81,58 @@ function displayPost(post) {
   }
 }
 
+//Trending Posts
+async function fetchTrendingPosts() {
+  const trendingList = document.querySelector(".trending-list");
+
+  try {
+    const response = await fetch(
+      "https://v2.api.noroff.dev/blog/posts/cgrotteland",
+      {
+        method: "GET",
+        headers: {
+          "X-Noroff-API-Key": "ca9fdebf-7c0e-4858-8136-c2e58a3c24f0",
+          "Content-Type": "application/json",
+        },
+      }
+    );
+
+    if (response.ok) {
+      const result = await response.json();
+      const posts = result.data;
+      const trendingPosts = posts.slice(0, 5);
+
+      trendingList.innerHTML = trendingPosts
+        .map(
+          (post, index) => `
+      <li class="trending-item">
+          <a href="singlePost.html?id=${post.id}" class="trending-link">
+            <div class="trending-content">
+              <img src="${
+                post.media?.url || "https://via.placeholder.com/80"
+              }" alt="${post.title}" />
+              <div>
+                <h3>${post.title}</h3>
+              </div>
+            </div>
+          </a>
+        </li>
+      `
+        )
+        .join("");
+    } else {
+      console.error("Failed to fetch trending posts:", response.statusText);
+    }
+  } catch (error) {
+    console.error("Error fetching trending posts:", error);
+  }
+}
+
+// Edit Post
 function editPost(postId) {
   window.location.href = `edit.html?id=${postId}`;
 }
+
 function ShareableLink() {
   const shareableLink = `${window.location.href}`;
   const linkContainer = document.getElementById("share-link");
@@ -102,4 +152,5 @@ function ShareableLink() {
 }
 
 getSinglePost();
+fetchTrendingPosts();
 ShareableLink();

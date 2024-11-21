@@ -454,30 +454,138 @@ button.read-more:hover {
   color: inherit;
 }
 /*blogs.html*/
-.explore-section {
-  text-align: center;
-  padding: 40px 20px;
-}
-
-.explore-image img {
-  width: 100%;
+/* Single Post Layout */
+.single-post-layout {
+  display: flex;
+  gap: 20px;
+  margin: 20px auto;
   max-width: 1200px;
-  height: auto;
+  padding: 20px;
+}
+
+#post-content {
+  flex: 3;
+}
+
+.trending-news {
+  flex: 1;
+  color: #fff;
+  padding: 20px;
   border-radius: 8px;
-  object-fit: cover;
+}
+
+.trending-news h2 {
+  font-size: 1.5rem;
   margin-bottom: 20px;
+  text-align: center;
+  color: #f8efe5;
 }
 
-.explore-text h1 {
-  font-size: 2.5rem;
-  margin-bottom: 10px;
-  color: #fff;
+.trending-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
 }
 
-.explore-text p {
-  font-size: 1.2rem;
-  line-height: 1.5;
+.trending-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 15px;
+  border-bottom: 1px solid #a1adb8;
+  padding-bottom: 10px;
+}
+
+.trending-item:last-child {
+  border-bottom: none;
+}
+
+.trending-content {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.trending-content img {
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: 4px;
+}
+
+.trending-content p {
+  font-size: 0.8rem;
+  margin: 0;
+  color: #ccc;
+}
+
+.trending-content h3 {
+  font-size: 1rem;
+  margin: 0;
   color: #fff;
+}
+.trending-link {
+  text-decoration: none;
+  color: inherit;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.trending-link:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+}
+
+@media (max-width: 768px) {
+  .single-post-layout {
+    flex-direction: column;
+  }
+
+  .trending-news {
+    max-width: 100%;
+  }
+}
+
+#explore-section {
+  background-image: url("https://images.unsplash.com/photo-1727434032765-9c4df88b6e02?q=80&w=1932&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D");
+  background-size: cover;
+  background-position: center;
+  height: 60vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  text-align: center;
+  padding: 0 20px;
+  margin-bottom: 50px;
+  position: relative;
+}
+
+#explore-section::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 1;
+}
+
+.explore-content {
+  position: relative;
+  z-index: 2;
+}
+
+.explore-content h1 {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+
+.explore-content p {
+  font-size: 1.5rem;
 }
 
 @media (max-width: 768px) {
