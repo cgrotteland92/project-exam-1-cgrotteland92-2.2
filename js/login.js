@@ -1,5 +1,5 @@
 "use strict";
-
+// ChatGPT assistance
 document.addEventListener("DOMContentLoaded", function () {
   const loginLink = document.getElementById("login-link");
 
