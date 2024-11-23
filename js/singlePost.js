@@ -1,9 +1,9 @@
 "use strict";
+//ChatGPT assistance
 function getPostIdFromUrl() {
   const urlParams = new URLSearchParams(window.location.search);
   return urlParams.get("id");
 }
-
 // Single Post
 async function getSinglePost() {
   const postId = getPostIdFromUrl();
@@ -155,6 +155,5 @@ function ShareableLink() {
   });
 }
 
-// Initialize
 getSinglePost();
 fetchTrendingPosts();
