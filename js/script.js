@@ -1,5 +1,5 @@
 "use strict";
-
+// ChatGPT assistance
 function getRandomPosts(posts, count) {
   const shuffled = [...posts].sort(() => 0.5 - Math.random());
   return shuffled.slice(0, count);
@@ -53,7 +53,6 @@ async function getBlogPosts() {
       });
       document.querySelector(".carousel-slide").innerHTML = carouselHTML;
 
-      // Carousel Navigation
       let currentIndex = 0;
       document.querySelector(".next").addEventListener("click", () => {
         const totalItems = document.querySelectorAll(`.carousel-item`).length;
@@ -95,15 +94,15 @@ async function getBlogPosts() {
       });
       document.getElementById("trending-posts").innerHTML = trendingHTML;
 
-      // Render All Posts
       let initialLoad = 4;
       let additionalLoad = 4;
       const remainingPosts = postsData.slice(3);
 
+      // All Posts
+      const last12Posts = postsData.slice(-12);
       let allPostsHTML = '<div class="posts-container">';
       function loadPosts() {
-        const postsToLoad = remainingPosts.splice(0, initialLoad);
-        postsToLoad.forEach((post) => {
+        last12Posts.forEach((post) => {
           allPostsHTML += `<a href="./post/singlePost.html?id=${
             post.id
           }" class="post-link">
