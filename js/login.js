@@ -76,4 +76,31 @@ document.addEventListener("DOMContentLoaded", function () {
       }
     });
   }
+
+  // Function to check login status
+  function checkLoginStatus() {
+    const authToken = localStorage.getItem("authToken");
+    if (authToken) {
+      console.log("User is logged in.");
+      if (loginLink) {
+        loginLink.innerText = "Logout";
+        loginLink.href = "#";
+        loginLink.addEventListener("click", (event) => {
+          event.preventDefault();
+          localStorage.removeItem("authToken");
+          alert("You have been logged out.");
+          window.location.replace("../index.html");
+        });
+      }
+    } else {
+      console.log("User is not logged in.");
+      if (loginLink) {
+        loginLink.innerText = "Login";
+        loginLink.href = "../login.html";
+      }
+    }
+  }
+
+  // Check login status on page load
+  checkLoginStatus();
 });

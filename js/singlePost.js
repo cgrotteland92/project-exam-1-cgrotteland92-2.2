@@ -1,10 +1,21 @@
 "use strict";
-//ChatGPT assistance
+// ChatGPT assistance
 function getPostIdFromUrl() {
   const urlParams = new URLSearchParams(window.location.search);
   return urlParams.get("id");
 }
-// Single Post
+
+function decodeToken(token) {
+  try {
+    const payload = token.split(".")[1];
+    return JSON.parse(atob(payload));
+  } catch (error) {
+    console.error("Invalid token:", error);
+    return null;
+  }
+}
+
+//single post
 async function getSinglePost() {
   const postId = getPostIdFromUrl();
   const postContainer = document.getElementById("post-content");
@@ -16,15 +27,28 @@ async function getSinglePost() {
     return;
   }
 
+  let username = "cgrotteland";
+  const token = localStorage.getItem("authToken");
+
+  if (token) {
+    const userDetails = decodeToken(token);
+    if (userDetails?.name) {
+      username = userDetails.name;
+    } else {
+      console.warn(
+        "Failed to decode token or missing username. Using default."
+      );
+    }
+  }
+
   try {
     const response = await fetch(
-      `https://v2.api.noroff.dev/blog/posts/cgrotteland/${postId}`,
+      `https://v2.api.noroff.dev/blog/posts/${username}/${postId}`,
       {
         method: "GET",
         headers: {
           "X-Noroff-API-Key": "ca9fdebf-7c0e-4858-8136-c2e58a3c24f0",
-          Authorization:
-            "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiY2dyb3R0ZWxhbmQiLCJlbWFpbCI6ImNocmdybzAyMTIyQHN0dWQubm9yb2ZmLm5vIiwiaWF0IjoxNzI5NzA4ODYzfQ.7JaI651Kw-OpJGMp-HlM4n3WUcV_12YHYfzJygZZWRA",
+          Authorization: token ? `Bearer ${token}` : undefined,
           "Content-Type": "application/json",
         },
       }
@@ -82,13 +106,26 @@ function displayPost(post) {
   ShareableLink();
 }
 
-// Trending Posts
 async function fetchTrendingPosts() {
   const trendingList = document.querySelector(".trending-list");
 
+  let username = "cgrotteland";
+  const token = localStorage.getItem("authToken");
+
+  if (token) {
+    const userDetails = decodeToken(token);
+    if (userDetails?.name) {
+      username = userDetails.name;
+    } else {
+      console.warn(
+        "Failed to decode token or missing username. Using default."
+      );
+    }
+  }
+
   try {
     const response = await fetch(
-      "https://v2.api.noroff.dev/blog/posts/cgrotteland",
+      `https://v2.api.noroff.dev/blog/posts/${username}`,
       {
         method: "GET",
         headers: {
@@ -105,7 +142,7 @@ async function fetchTrendingPosts() {
 
       trendingList.innerHTML = trendingPosts
         .map(
-          (post, index) => `
+          (post) => `
       <li class="trending-item">
           <a href="singlePost.html?id=${post.id}" class="trending-link">
             <div class="trending-content">
@@ -127,7 +164,6 @@ async function fetchTrendingPosts() {
   }
 }
 
-// Edit Post
 function editPost(postId) {
   window.location.href = `edit.html?id=${postId}`;
 }

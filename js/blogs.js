@@ -1,5 +1,5 @@
 "use strict";
-
+// ChatGPT assistance
 function decodeToken(token) {
   try {
     const payload = token.split(".")[1];
@@ -30,8 +30,6 @@ async function allNewsPage() {
     return;
   }
 
-  console.log("Logged-in username:", username); // Debugging
-
   const options = {
     method: "GET",
     headers: {
@@ -60,7 +58,6 @@ async function allNewsPage() {
 
     allNewsContainer.innerHTML = "<p>Loading news...</p>";
 
-    // Fetch posts for the logged-in user
     const response = await fetch(
       `https://v2.api.noroff.dev/blog/posts/${username}`,
       options
@@ -70,12 +67,10 @@ async function allNewsPage() {
     if (responseData.data) {
       let newsData = responseData.data;
 
-      // Show the Create Post button if logged in
       if (token) {
         createPostButton.style.display = "block";
       }
 
-      // Render tag dropdown
       const uniqueTags = Array.from(
         new Set(newsData.flatMap((news) => news.tags || []))
       );
@@ -87,7 +82,6 @@ async function allNewsPage() {
 
       renderNews(newsData);
 
-      // Filter by Tag
       tagDropdown.addEventListener("change", (event) => {
         const selectedTag = event.target.value;
         if (selectedTag === "all") {
@@ -100,7 +94,6 @@ async function allNewsPage() {
         }
       });
 
-      // Filter by Date
       sortDropdown.addEventListener("change", (event) => {
         const sortValue = event.target.value;
         if (sortValue === "newest") {

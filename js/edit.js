@@ -3,7 +3,6 @@
 document.addEventListener("DOMContentLoaded", async function () {
   const token = localStorage.getItem("authToken");
   const postId = new URLSearchParams(window.location.search).get("id");
-  const username = "cgrotteland";
 
   if (!token) {
     alert("You must be logged in to edit or delete a post.");
@@ -25,6 +24,19 @@ document.addEventListener("DOMContentLoaded", async function () {
   const deleteButton = document.getElementById("delete-button");
   const editMessage = document.getElementById("edit-message");
 
+  function decodeToken(token) {
+    try {
+      const payload = token.split(".")[1];
+      return JSON.parse(atob(payload));
+    } catch (error) {
+      console.error("Invalid token:", error);
+      return null;
+    }
+  }
+
+  const userDetails = decodeToken(token);
+  const username = userDetails?.name || "cgrotteland";
+
   async function fetchPostData() {
     try {
       const response = await fetch(
@@ -33,8 +45,7 @@ document.addEventListener("DOMContentLoaded", async function () {
           headers: {
             "X-Noroff-API-Key": "ca9fdebf-7c0e-4858-8136-c2e58a3c24f0",
             "Content-Type": "application/json",
-            Authorization:
-              "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiY2dyb3R0ZWxhbmQiLCJlbWFpbCI6ImNocmdybzAyMTIyQHN0dWQubm9yb2ZmLm5vIiwiaWF0IjoxNzI5NzA4ODYzfQ.7JaI651Kw-OpJGMp-HlM4n3WUcV_12YHYfzJygZZWRA",
+            Authorization: `Bearer ${token}`,
           },
         }
       );
@@ -58,7 +69,7 @@ document.addEventListener("DOMContentLoaded", async function () {
 
   await fetchPostData();
 
-  // Edit functionality
+  // Edit function
   editForm.addEventListener("submit", async function (event) {
     event.preventDefault();
 
@@ -99,7 +110,7 @@ document.addEventListener("DOMContentLoaded", async function () {
     }
   });
 
-  // Delete functionality
+  // Delete function
   deleteButton.addEventListener("click", async function () {
     if (!confirm("Are you sure you want to delete this post?")) return;
 

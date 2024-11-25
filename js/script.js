@@ -1,17 +1,43 @@
 "use strict";
 // ChatGPT assistance
+
+function decodeToken(token) {
+  try {
+    const payload = token.split(".")[1];
+    return JSON.parse(atob(payload));
+  } catch (error) {
+    console.error("Invalid token:", error);
+    return null;
+  }
+}
+
 function getRandomPosts(posts, count) {
   const shuffled = [...posts].sort(() => 0.5 - Math.random());
   return shuffled.slice(0, count);
 }
 
 async function getBlogPosts() {
+  const token = localStorage.getItem("authToken");
+  let username = "cgrotteland";
+
+  if (token) {
+    const userDetails = decodeToken(token);
+    if (userDetails?.name) {
+      username = userDetails.name;
+    } else {
+      console.warn(
+        "Failed to decode token or missing username. Using default."
+      );
+    }
+  } else {
+    console.warn("User not logged in. Defaulting to 'cgrotteland'.");
+  }
+
   const options = {
     method: "GET",
     headers: {
       "X-Noroff-API-Key": "ca9fdebf-7c0e-4858-8136-c2e58a3c24f0",
-      Authorization:
-        "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiY2dyb3R0ZWxhbmQiLCJlbWFpbCI6ImNocmdybzAyMTIyQHN0dWQubm9yb2ZmLm5vIiwiaWF0IjoxNzI5NzA4ODYzfQ.7JaI651Kw-OpJGMp-HlM4n3WUcV_12YHYfzJygZZWRA",
+      Authorization: token ? `Bearer ${token}` : undefined,
       "Content-Type": "application/json",
     },
   };
@@ -24,7 +50,7 @@ async function getBlogPosts() {
       "<p>Loading posts...</p>";
 
     const response = await fetch(
-      "https://v2.api.noroff.dev/blog/posts/cgrotteland",
+      `https://v2.api.noroff.dev/blog/posts/${username}`,
       options
     );
     const responseData = await response.json();
@@ -69,7 +95,7 @@ async function getBlogPosts() {
         ).style.transform = `translateX(${-currentIndex * 100}%)`;
       });
 
-      //Trending Posts
+      // Trending Posts
       const trendingPosts = getRandomPosts(postsData, 3);
       let trendingHTML = "";
       trendingPosts.forEach((post) => {
@@ -94,54 +120,36 @@ async function getBlogPosts() {
       });
       document.getElementById("trending-posts").innerHTML = trendingHTML;
 
-      let initialLoad = 4;
-      let additionalLoad = 4;
-      const remainingPosts = postsData.slice(3);
-
       // All Posts
       const last12Posts = postsData.slice(-12);
       let allPostsHTML = '<div class="posts-container">';
-      function loadPosts() {
-        last12Posts.forEach((post) => {
-          allPostsHTML += `<a href="./post/singlePost.html?id=${
-            post.id
-          }" class="post-link">
-            <div class="post">
-              <div class="post-image-box">
-                ${
-                  post.media?.url
-                    ? `<img src="${post.media.url}" alt="${
-                        post.media.alt || "Blog post thumbnail"
-                      }" class="post-thumbnail">`
-                    : ""
-                }
-              </div>
-              <div class="post-content">
-                <p class="post-date">${new Date(
-                  post.created
-                ).toLocaleDateString()}</p>
-                <p class="post-author">By ${post.author.name}</p>
-                <h2 class="post-title">${post.title}</h2>
-                <p class="post-excerpt">${post.body.slice(0, 100)}...</p>
-              </div>
+      last12Posts.forEach((post) => {
+        allPostsHTML += `<a href="./post/singlePost.html?id=${
+          post.id
+        }" class="post-link">
+          <div class="post">
+            <div class="post-image-box">
+              ${
+                post.media?.url
+                  ? `<img src="${post.media.url}" alt="${
+                      post.media.alt || "Blog post thumbnail"
+                    }" class="post-thumbnail">`
+                  : ""
+              }
             </div>
-          </a>`;
-        });
-
-        document.getElementById("all-posts").innerHTML = allPostsHTML;
-
-        if (remainingPosts.length === 0) {
-          document.getElementById("see-more").style.display = "none";
-        }
-      }
-
-      loadPosts();
-
-      document.getElementById("see-more").addEventListener("click", (event) => {
-        event.preventDefault();
-        initialLoad = additionalLoad;
-        loadPosts();
+            <div class="post-content">
+              <p class="post-date">${new Date(
+                post.created
+              ).toLocaleDateString()}</p>
+              <p class="post-author">By ${post.author.name}</p>
+              <h2 class="post-title">${post.title}</h2>
+              <p class="post-excerpt">${post.body.slice(0, 100)}...</p>
+            </div>
+          </div>
+        </a>`;
       });
+      allPostsHTML += "</div>";
+      document.getElementById("all-posts").innerHTML = allPostsHTML;
     } else {
       throw new Error("No data found.");
     }
@@ -160,4 +168,6 @@ function goToPost(postId) {
   window.location.href = `./post/singlePost.html?id=${postId}`;
 }
 
-getBlogPosts();
+document.addEventListener("DOMContentLoaded", () => {
+  getBlogPosts();
+});
