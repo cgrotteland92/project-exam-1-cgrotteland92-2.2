@@ -445,6 +445,57 @@ button.read-more:hover {
   color: inherit;
 }
 /*blogs.html*/
+
+#create-post-button {
+  display: block;
+  margin: 20px auto;
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: #5865f2;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+#create-post-button:hover,
+#create-post-form button:hover {
+  background-color: #4751d9;
+}
+
+#create-post-form {
+  max-width: 600px;
+  margin: 20px auto;
+  padding: 20px;
+  border-radius: 4px;
+  background-color: #1f1f23;
+}
+
+#create-post-form input,
+#create-post-form textarea,
+#create-post-form button {
+  width: 100%;
+  margin-bottom: 15px;
+  padding: 10px;
+  font-size: 14px;
+  border-radius: 5px;
+  box-sizing: border-box;
+}
+
+#create-post-form textarea {
+  height: 100px;
+  resize: none;
+}
+
+#create-post-form button {
+  background-color: #5865f2;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
 .single-post-layout {
   display: flex;
   gap: 20px;

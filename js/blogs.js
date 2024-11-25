@@ -1,7 +1,36 @@
 "use strict";
 
+function decodeToken(token) {
+  try {
+    const payload = token.split(".")[1];
+    return JSON.parse(atob(payload));
+  } catch (error) {
+    console.error("Invalid token:", error);
+    return null;
+  }
+}
+
 async function allNewsPage() {
   const token = localStorage.getItem("authToken");
+
+  if (!token) {
+    console.error("User is not logged in.");
+    document.getElementById("all-news").innerHTML =
+      "<p>Please log in to view posts.</p>";
+    return;
+  }
+
+  const userDetails = decodeToken(token);
+  const username = userDetails?.name;
+
+  if (!username) {
+    console.error("Failed to decode token or missing username.");
+    document.getElementById("all-news").innerHTML =
+      "<p>Invalid session. Please log in again.</p>";
+    return;
+  }
+
+  console.log("Logged-in username:", username); // Debugging
 
   const options = {
     method: "GET",
@@ -16,15 +45,24 @@ async function allNewsPage() {
     const allNewsContainer = document.getElementById("all-news");
     const tagDropdown = document.getElementById("tag-dropdown");
     const sortDropdown = document.getElementById("sort-dropdown");
+    const createPostButton = document.getElementById("create-post-button");
+    const createPostForm = document.getElementById("create-post-form");
 
-    if (!allNewsContainer || !tagDropdown || !sortDropdown) {
+    if (
+      !allNewsContainer ||
+      !tagDropdown ||
+      !sortDropdown ||
+      !createPostButton ||
+      !createPostForm
+    ) {
       throw new Error("Required elements not found.");
     }
 
     allNewsContainer.innerHTML = "<p>Loading news...</p>";
 
+    // Fetch posts for the logged-in user
     const response = await fetch(
-      "https://v2.api.noroff.dev/blog/posts/cgrotteland",
+      `https://v2.api.noroff.dev/blog/posts/${username}`,
       options
     );
     const responseData = await response.json();
@@ -32,7 +70,12 @@ async function allNewsPage() {
     if (responseData.data) {
       let newsData = responseData.data;
 
-      // Dropdown - chatgpt assistance
+      // Show the Create Post button if logged in
+      if (token) {
+        createPostButton.style.display = "block";
+      }
+
+      // Render tag dropdown
       const uniqueTags = Array.from(
         new Set(newsData.flatMap((news) => news.tags || []))
       );
@@ -42,10 +85,9 @@ async function allNewsPage() {
       });
       tagDropdown.innerHTML = tagDropdownHTML;
 
-      //
       renderNews(newsData);
 
-      // Filter Tag
+      // Filter by Tag
       tagDropdown.addEventListener("change", (event) => {
         const selectedTag = event.target.value;
         if (selectedTag === "all") {
@@ -58,7 +100,7 @@ async function allNewsPage() {
         }
       });
 
-      // Filter Date
+      // Filter by Date
       sortDropdown.addEventListener("change", (event) => {
         const sortValue = event.target.value;
         if (sortValue === "newest") {
@@ -67,6 +109,65 @@ async function allNewsPage() {
           newsData = sortPosts(newsData, "oldest");
         }
         renderNews(newsData);
+      });
+
+      // Create post
+      createPostForm.addEventListener("submit", async (event) => {
+        event.preventDefault();
+
+        const title = document.getElementById("post-title").value.trim();
+        const body = document.getElementById("post-body").value.trim();
+        const tags = document
+          .getElementById("post-tags")
+          .value.split(",")
+          .map((tag) => tag.trim());
+        const mediaUrl = document.getElementById("post-media").value.trim();
+
+        if (!title || !body) {
+          alert("Title and body are required!");
+          return;
+        }
+
+        const postData = {
+          title,
+          body,
+          tags,
+          media: mediaUrl ? { url: mediaUrl } : null,
+        };
+
+        try {
+          const response = await fetch(
+            `https://v2.api.noroff.dev/blog/posts/${username}`,
+            {
+              method: "POST",
+              headers: {
+                "X-Noroff-API-Key": "ca9fdebf-7c0e-4858-8136-c2e58a3c24f0",
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`,
+              },
+              body: JSON.stringify(postData),
+            }
+          );
+
+          const responseData = await response.json();
+          console.log("API Response:", responseData);
+
+          if (response.ok) {
+            alert("Post created successfully!");
+            createPostForm.reset();
+            allNewsPage();
+          } else {
+            console.error("Failed to create post:", responseData);
+            alert(
+              `Failed to create post. Error: ${
+                responseData.errors?.[0]?.message || "Unknown error"
+              }`
+            );
+          }
+        } catch (error) {
+          console.error("Error creating post:", error);
+          alert("An error occurred while creating the post. Please try again.");
+        }
       });
     } else {
       throw new Error("No data found.");
