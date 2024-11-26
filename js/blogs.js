@@ -1,5 +1,6 @@
 "use strict";
 // ChatGPT assistance
+
 function decodeToken(token) {
   try {
     const payload = token.split(".")[1];
@@ -12,30 +13,27 @@ function decodeToken(token) {
 
 async function allNewsPage() {
   const token = localStorage.getItem("authToken");
+  let username = "cgrotteland"; // Default to "cgrotteland" for public view
 
-  if (!token) {
-    console.error("User is not logged in.");
-    document.getElementById("all-news").innerHTML =
-      "<p>Please log in to view posts.</p>";
-    return;
-  }
-
-  const userDetails = decodeToken(token);
-  const username = userDetails?.name;
-
-  if (!username) {
-    console.error("Failed to decode token or missing username.");
-    document.getElementById("all-news").innerHTML =
-      "<p>Invalid session. Please log in again.</p>";
-    return;
+  if (token) {
+    const userDetails = decodeToken(token);
+    if (userDetails?.name) {
+      username = userDetails.name;
+    } else {
+      console.warn(
+        "Failed to decode token or missing username. Defaulting to 'cgrotteland'."
+      );
+    }
+  } else {
+    console.warn("User not logged in. Defaulting to 'cgrotteland'.");
   }
 
   const options = {
     method: "GET",
     headers: {
       "X-Noroff-API-Key": "ca9fdebf-7c0e-4858-8136-c2e58a3c24f0",
+      Authorization: token ? `Bearer ${token}` : undefined,
       "Content-Type": "application/json",
-      Authorization: `Bearer ${token}`,
     },
   };
 
@@ -58,6 +56,7 @@ async function allNewsPage() {
 
     allNewsContainer.innerHTML = "<p>Loading news...</p>";
 
+    // Fetch blog posts dynamically using the username
     const response = await fetch(
       `https://v2.api.noroff.dev/blog/posts/${username}`,
       options
@@ -104,64 +103,70 @@ async function allNewsPage() {
         renderNews(newsData);
       });
 
-      // Create post
-      createPostForm.addEventListener("submit", async (event) => {
-        event.preventDefault();
+      // Show the create post form only if the user is logged in
+      if (token) {
+        createPostForm.addEventListener("submit", async (event) => {
+          event.preventDefault();
 
-        const title = document.getElementById("post-title").value.trim();
-        const body = document.getElementById("post-body").value.trim();
-        const tags = document
-          .getElementById("post-tags")
-          .value.split(",")
-          .map((tag) => tag.trim());
-        const mediaUrl = document.getElementById("post-media").value.trim();
+          const title = document.getElementById("post-title").value.trim();
+          const body = document.getElementById("post-body").value.trim();
+          const tags = document
+            .getElementById("post-tags")
+            .value.split(",")
+            .map((tag) => tag.trim());
+          const mediaUrl = document.getElementById("post-media").value.trim();
 
-        if (!title || !body) {
-          alert("Title and body are required!");
-          return;
-        }
+          if (!title || !body) {
+            alert("Title and body are required!");
+            return;
+          }
 
-        const postData = {
-          title,
-          body,
-          tags,
-          media: mediaUrl ? { url: mediaUrl } : null,
-        };
+          const postData = {
+            title,
+            body,
+            tags,
+            media: mediaUrl ? { url: mediaUrl } : null,
+          };
 
-        try {
-          const response = await fetch(
-            `https://v2.api.noroff.dev/blog/posts/${username}`,
-            {
-              method: "POST",
-              headers: {
-                "X-Noroff-API-Key": "ca9fdebf-7c0e-4858-8136-c2e58a3c24f0",
-                "Content-Type": "application/json",
-                Authorization: `Bearer ${token}`,
-              },
-              body: JSON.stringify(postData),
+          try {
+            const response = await fetch(
+              `https://v2.api.noroff.dev/blog/posts/${username}`,
+              {
+                method: "POST",
+                headers: {
+                  "X-Noroff-API-Key": "ca9fdebf-7c0e-4858-8136-c2e58a3c24f0",
+                  "Content-Type": "application/json",
+                  Authorization: `Bearer ${token}`,
+                },
+                body: JSON.stringify(postData),
+              }
+            );
+
+            const responseData = await response.json();
+            console.log("API Response:", responseData);
+
+            if (response.ok) {
+              alert("Post created successfully!");
+              createPostForm.reset();
+              allNewsPage();
+            } else {
+              console.error("Failed to create post:", responseData);
+              alert(
+                `Failed to create post. Error: ${
+                  responseData.errors?.[0]?.message || "Unknown error"
+                }`
+              );
             }
-          );
-
-          const responseData = await response.json();
-          console.log("API Response:", responseData);
-
-          if (response.ok) {
-            alert("Post created successfully!");
-            createPostForm.reset();
-            allNewsPage();
-          } else {
-            console.error("Failed to create post:", responseData);
+          } catch (error) {
+            console.error("Error creating post:", error);
             alert(
-              `Failed to create post. Error: ${
-                responseData.errors?.[0]?.message || "Unknown error"
-              }`
+              "An error occurred while creating the post. Please try again."
             );
           }
-        } catch (error) {
-          console.error("Error creating post:", error);
-          alert("An error occurred while creating the post. Please try again.");
-        }
-      });
+        });
+      } else {
+        createPostButton.style.display = "none";
+      }
     } else {
       throw new Error("No data found.");
     }
